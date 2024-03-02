@@ -24,11 +24,15 @@ section{
 
 .home{
     background-position: left;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 80vh;
 }
 
 .heading{
     text-align: center;
-    font-size: 4rem;
+    font-size: 5rem;
     color: #333;
     padding: 1rem;
     margin: 2rem 0;
@@ -40,22 +44,44 @@ section{
 }
 
 .btn{
-    display: inline-block;
-    margin-top: 3rem;
+    display: inline-flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
     border-radius: 5rem;
     background:#333;
     color:#fff;
     padding: .9rem 3.5rem;
     cursor: pointer;
     font-size: 1.7rem;
+    margin-right: 0.5rem;
+    margin-left: 1rem;  
 }
 
-btn:hover{
-    background:var(--green);
-
+.btn1{
+    display: inline-block;
+    margin-top: 0.5rem;
+    border-radius: 5rem;
+    background:#333;
+    color:#fff;
+    padding: .9rem 3.5rem;
+    cursor: pointer;
+    font-size: 1.7rem;
+    margin-right: 1rem;
+    margin-top: 3rem;
 }
+
+.btn:hover{
+    background: #fff;
+    color: #213a57;
+}
+
+.btn1:hover{
+    background: #148289;
+    color: #000;
+}
+
 header{
-    position: fixed;
+    position: relative;
     top:0; left:0; right:0;
     background:#14919b;
     padding:2rem 9%;
@@ -114,14 +140,19 @@ header .fa-bars{
 .home{
     display: flex;
     align-items: center;
-    min-height: 100vh;
-    background: url(test2.jpg);
-    background-size: cover;
+    min-height: 30vh;
+    /*background: #fff;*/
     background-position: center;
+    border-radius: 2rem;
+    box-shadow: .5rem .5rem .5rem 1rem #33333353;
+    margin: 0.8rem 0.8rem 0.8rem 0.8rem;
+    background-image: url(images/back.jpeg);
+    background-size: cover;
 }
 
 .home .content{
     max-width: 50rem;
+    margin-bottom: 3rem;
 }
 
 .home .content h3{
@@ -130,83 +161,155 @@ header .fa-bars{
 }
 
 .home .content span{
-    font-size: 3.5rem;
+    font-size: 3rem;
     color:var(--green);
     padding: 1rem 0;
     line-height: 1.5;
+    margin-top: 10rem;
 }
 
 .home .content span{
-    font-size: 3.5rem;
+    font-size: 3rem;
     color:#213a57;
+    margin-top: 10rem;
 }
 
-.about .row{
+.p{
+    font-size: 1.5rem;
+}
+
+.icons-container{
+    background: #f7f4f0 ;
+    display: flex;
+    flex-wrap: wrap;
+    gap:1.5rem;
+    padding-top: 1rem;
+    padding-bottom: .5rem;
+
+}
+
+.icons-container .icons{
+    size: 1rem;
+    background: linear-gradient(45deg,#48edbc,#18949d);
+    border-radius: 2rem;
+    /*border:.1rem solid #333;*/
+    padding:3rem;
     display: flex;
     align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    padding: 2rem 0;
+    flex:  1 1 25rem;
+    margin-bottom: 7rem;
+    margin-top: 7rem;
+    margin-right: 2rem;
+    margin-left: 2rem;
+    box-shadow: 0 .5rem 1rem #33333395; 
+}
+
+.icons-container .icons img{
+    height: 5rem;
+    margin-right: 2rem;
+}
+
+.icons-container .icons h3{
+    color: black;
+    padding-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.icons-container .icons span{
+    color: #181616;
+    font-size: 1.3rem;
+}
+
+.icons-container:hover{
+    color:#fff;
+
+}
+.features{
+    padding-top: 3rem;
     padding-bottom: 3rem;
-}
-
-.about .row  h3{
+    background-color: #333;
+    color: #f7f4f0 ;
     align-items: center;
-    margin-top: 4rem;
-    top: 0%; transform:translateY(-30%);
-    font-size: 3rem;
-    color: #000;
-    background: transparent;
-    width: 100%;
-    padding: 1rem 2rem;
-    text-align: center;
-    font-style: normal;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-.about .row .tag h3{
+.features .content{
+    text-align: center;
+    font-size: 2rem;
+}
+
+.text{
+    background-color: #f7f4f0 ;
+    padding-top: 2rem;
+}
+
+.text .tag{
+    text-align: center;
+    display: block;
+    font-size: 2rem;
+    font-style: italic;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #0d6b6b;
+    margin-bottom: 2rem;
+}
+
+.box1{
+    background-color:#f7f4f0 ;
+}
+
+.box1 .box {
     align-items: center;
-    margin-top: 4rem;
-    top: 0%; transform:translateY(-30%);
-    font-size: 3rem;
-    color: #14919b;
-    background: transparent;
-    width: 100%;
-    padding: 1rem 2rem;
+    width: 99%;
+    height: 400px;
+    padding: 20px;
+    background-color: #213a57;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /*border-radius: 8px;*/
     text-align: center;
-    font-style: oblique;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-.about .row .image-container{
-    flex: 1 1 40rem;
-    position: relative;
+.box h3{
+    color:#fff;
 }
 
-.about .row .image-container img{
-    width:75%;
-    border: 1.5rem solid #14919b;
-    border-radius: .5rem;
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
-    height: 100%;
-    object-fit: cover;
+/* Social Media Links Section Styles */
+.social-media {
+    text-align: center;
+    padding: 3rem 0;
+    background: #f7f4f0 ; /* Adjust background color as needed */
 }
 
-
-.about .row .content{
-    flex: 1 1 40rem;
-    font-size: medium;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.social-media h3 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
 }
 
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
 
+.social-icons a {
+    font-size: 2rem;
+    color: #333; /* Adjust icon color as needed */
+    transition: color 0.3s ease;
+}
 
+.social-icons a:hover {
+    color: #45dfb1; /* Adjust hover color as needed */
+}
 
+/* Trademark Option Styles */
+.trademark {
+    text-align: center;
+    padding: 1rem 0;
+    background: #333; /* Adjust background color as needed */
+}
 
-
-
-
-
+.trademark p {
+    color: #fff; /* Adjust text color as needed */
+    font-size: 1rem;
+}
 
 
 
@@ -261,6 +364,7 @@ header .fa-bars{
     .home .content span{
         font-size: 2.5rem;
     }
+
 }
 
 @media (max-width:450px){
@@ -276,4 +380,16 @@ header .fa-bars{
     header{
         padding: 2rem;
     }
+
+    .icons-container .icons h3{
+        color: #333;
+        padding-bottom: .5rem;
+        font-size: 1.5rem;
+    }
+    
+    .icons-container .icons span{
+        color: #666060;
+        font-size: 1.3rem;
+    }
+    
 }
