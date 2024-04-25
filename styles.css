@@ -1,0 +1,99 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    background-color: #213A57; /* Background color */
+  }
+  
+  .sidebar {
+    width: 250px;
+    padding: 20px;
+    background-color: #0B6477; /* Sidebar background color */
+    border-right: 1px solid #ddd;
+  }
+  
+  .sidebar h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #fff; /* Text color for sidebar headings */
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+  
+  .sidebar li {
+    margin-bottom: 5px;
+  }
+  
+  .sidebar a {
+    text-decoration: none;
+    color: #fff; /* Text color for sidebar links */
+    display: block;
+    padding: 5px;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sidebar a:hover {
+    background-color: #14919B; /* Button background color (primary) on hover */
+  }
+  
+  .sidebar select, .sidebar button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #0AD1CB; /* Button background color (secondary) */
+    color: #fff; /* Text color for buttons */
+    transition: background-color 0.3s ease;
+  }
+  
+  .sidebar select:hover, .sidebar button:hover {
+    background-color: #14919B; /* Button background color (primary) on hover */
+    border-color: #007bff;
+  }
+  
+  .product-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .product {
+    flex: 1 1 calc(25% - 20px);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff; /* Product background color */
+  }
+  
+  .product img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .add-to-cart-btn {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #14919B; /* Button background color (primary) */
+    color: #fff; /* Text color for buttons */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: #0AD1CB; /* Button background color (secondary) on hover */
+  }
+  
