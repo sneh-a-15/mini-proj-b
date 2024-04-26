@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="{% static "sample.css" %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Adjust logo position */
+.logo {
+    margin-right: auto; /* Move the logo to the left */
+}
+
         /* Permanent Header Styles */
         .header {
             background-color: #d3f4f2;
@@ -47,6 +52,30 @@
         .search-submit ion-icon {
             font-size: 20px;
         }
+
+        /* Dropdown styles */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    list-style-type: none;
+    padding: 10px;
+}
+
+.dropdown-toggle::after {
+    content: '\25BC'; /* Unicode character for arrow */
+    margin-left: 5px;
+}
+.navbar-link {
+    color: #000; /* Set the desired color for the link */
+}
     </style>
 </head>
 <body>
@@ -62,7 +91,7 @@
                     </form>
                 </div>
 
-                <div class="header-actions">
+                <div class="header-actions" style="flex: 1;">
                     <a href="#" class="logo" style="font-size: 20px;">
                         <img src="{% static 'images/favicon.ico' %}" width="30" height="5" alt="CURA">
                     </a>
@@ -96,5 +125,28 @@
     </header>
 
     {% block content %}{% endblock content %}
-</body>
-</html>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          // Select all elements with the class 'dropdown-toggle'
+          var dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+        
+          // Loop through each toggle element
+          dropdownToggles.forEach(function(toggle) {
+            // Add click event listener to each toggle
+            toggle.addEventListener('click', function() {
+              // Get the next sibling element (should be the dropdown menu)
+              var dropdownMenu = this.nextElementSibling;
+        
+              // Toggle the visibility of the dropdown menu
+              if (dropdownMenu.style.display === 'none' || dropdownMenu.style.display === '') {
+                dropdownMenu.style.display = 'block';
+              } else {
+                dropdownMenu.style.display = 'none';
+              }
+            });
+          });
+        });
+        </script>
+        
+        </body>
+        </html>

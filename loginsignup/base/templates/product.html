@@ -30,7 +30,7 @@ Products
   /* Style for product boxes */
   .product-box {
     margin-top: 15px;
-    width: calc(50% - 10px);
+    width: calc(33.33% - 20px); /* Adjusted width for three boxes in a row */
     border: 1px solid #ccc; /* Border color */
     border-radius: 8px; /* Rounded corners */
     padding: 20px; /* Padding around the box */
@@ -89,9 +89,9 @@ Products
 <div class="container py-5">
   <h1 class="text-center display-4 mb-4">All Products</h1>
 
-  <div class="row product-grid">
+  <div class="row">
     {% for product in products %}
-    <div class="col-lg-4 col-md-6 mb-4">
+    <div class="col-lg-4 col-md-4 mb-4"> {# Changed col-md-6 to col-md-4 to fit three boxes in a row #}
       <div class="product-box">
         <a href="{% url 'base:product_detail' product.id %}">
           <img class="card-img-top p-3" src="{{ product.prod_image.url }}" alt="{{ product.name }}">
