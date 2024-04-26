@@ -93,6 +93,29 @@ Products
   .add-to-cart-btn:hover {
     background-color: #218838; /* Button background color on hover */
   }
+
+  .sort-btns {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .sort-btn {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 2px solid #007bff;
+    background-color: #fff;
+    color: #007bff;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+
+  .sort-btn:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
 </style>
 
 <div class="container mt-2">
@@ -102,11 +125,17 @@ Products
   </div>
   <hr>
   
+  <div class="sort-btns">
+    <button class="btn btn-secondary sort-btn" onclick="sortByName()">Sort by Name</button>
+    <button class="btn btn-secondary sort-btn" onclick="sortByPrice()">Sort by Price</button>
+  </div>
+
   <div class="medicine-cards">
     {% for product in products %}
     <div class="medicine-card">
-      <a href="{% url 'base:product_detail' product.id %}"></a>
+      <a href="{% url 'base:product_detail' product.id %}">
       <img src="{{ product.prod_image.url }}" class="card-img-top" alt="{{ product.name }}" width=" 100" height="150">
+    </a>
       <div class="medicine-details">
         <h3 class="product-name">{{ product.prod_name }}</h3>
         <p class="product-price">Price: ₹{{  product.prod_price }}</p>
@@ -117,5 +146,16 @@ Products
     {% endfor %}
   </div>
 </div>
+
+<script>
+  // JavaScript functions to handle sorting
+  function sortByName() {
+    window.location.href = "{% url 'base:product' %}?sort_by=name";
+  }
+
+  function sortByPrice() {
+    window.location.href = "{% url 'base:product' %}?sort_by=price";
+  }
+</script>
 
 {% endblock %}

@@ -90,6 +90,29 @@
   .add-to-cart-btn:hover {
     background-color: #218838; /* Button background color on hover */
   }
+
+  .sort-btns {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .sort-btn {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 2px solid #007bff;
+    background-color: #fff;
+    color: #007bff;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+
+  .sort-btn:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
 </style>
 
 <div class="container mt-2">
@@ -99,6 +122,11 @@
   </div>
   <hr>
   
+  <div class="sort-btns">
+    <button class="btn btn-secondary sort-btn" onclick="sortByName()">Sort by Name</button>
+    <button class="btn btn-secondary sort-btn" onclick="sortByPrice()">Sort by Price</button>
+  </div>
+
   <div class="medicine-cards">
     {% for ayurveda in myayur %}
     <div class="medicine-card">
@@ -113,5 +141,16 @@
     {% endfor %}
   </div>
 </div>
+
+<script>
+  // JavaScript functions to handle sorting
+  function sortByName() {
+    window.location.href = "{% url 'base:ayurveda' %}?sort_by=name";
+  }
+
+  function sortByPrice() {
+    window.location.href = "{% url 'base:ayurveda' %}?sort_by=price";
+  }
+</script>
 
 {% endblock %}

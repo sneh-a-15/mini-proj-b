@@ -20,24 +20,30 @@
     margin-bottom: 10px; /* Bottom margin */
   }
 
-  /* Style for medicine cards */
+  /* Style for medicine cards container */
+  .medicine-cards {
+    display: flex; /* Use flexbox */
+    flex-wrap: wrap; /* Wrap items onto multiple lines */
+    justify-content: space-between; /* Distribute items evenly with equal space between them */
+  }
+
+  /* Style for medicine card */
   .medicine-card {
-    margin-top: 20px;
-    width: 18rem; /* Card width */
-    border-radius: 30px; /* Rounded corners */
-    margin-bottom: 30px; /* Spacing between cards */
+    margin-top: 30px;
+    width: calc(33% - 10px); /* Set card width to half of the container width with margin */
+    margin-bottom: 20px; /* Bottom margin */
     background-color: #fff; /* Card background color */
+    border-radius: 10px; /* Rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Card shadow */
   }
 
-  /* Style for medicine card images */
+  /* Style for medicine card image */
   .medicine-card img {
-    border-top-left-radius: 30px; /* Rounded corners for top-left of image */
-    border-top-right-radius: 30px; /* Rounded corners for top-right of image */
-    padding: 20px; /* Padding around the image */
+    border-top-left-radius: 10px; /* Rounded corners for top-left of image */
+    border-top-right-radius: 10px; /* Rounded corners for top-right of image */
     width: 100%; /* Image width */
     height: 200px; /* Image height */
-    object-fit: cover; /* Cover the entire space of the image container */
+    object-fit: contain; /* Cover the entire space of the image container */
   }
 
   /* Style for medicine details */
@@ -47,21 +53,21 @@
 
   /* Style for medicine name */
   .medicine-name {
-    font-size: 20px; /* Font size */
+    font-size: 16px; /* Font size */
     font-weight: bold; /* Bold font */
     margin-bottom: 10px; /* Spacing below the medicine name */
   }
 
   /* Style for medicine price */
   .medicine-price {
-    font-size: 16px; /* Font size */
+    font-size: 14px; /* Font size */
     color: #28a745; /* Green color for price */
     margin-bottom: 10px; /* Spacing below the medicine price */
   }
 
   /* Style for expiry date */
   .expiry-date {
-    font-size: 14px; /* Font size */
+    font-size: 12px; /* Font size */
     color: #dc3545; /* Red color for expiry date */
     margin-bottom: 10px; /* Spacing below the expiry date */
   }
@@ -71,11 +77,11 @@
     background-color: #28a745; /* Button background color */
     color: #fff; /* Button text color */
     border: none; /* No border */
-    padding: 8px 16px; /* Padding */
+    padding: 6px 12px; /* Padding */
     text-align: center; /* Center align text */
     text-decoration: none; /* No underline */
     display: inline-block; /* Display as inline block */
-    font-size: 14px; /* Font size */
+    font-size: 12px; /* Font size */
     border-radius: 4px; /* Rounded corners */
     cursor: pointer; /* Cursor on hover */
   }
@@ -83,6 +89,29 @@
   /* Style for Add to Cart button on hover */
   .add-to-cart-btn:hover {
     background-color: #218838; /* Button background color on hover */
+  }
+
+  .sort-btns {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .sort-btn {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 2px solid #007bff;
+    background-color: #fff;
+    color: #007bff;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+
+  .sort-btn:hover {
+    background-color: #007bff;
+    color: #fff;
   }
 </style>
 
@@ -93,23 +122,37 @@
   </div>
   <hr>
   
-  <div class="container mt-2">
-    <div class="row">
-      {% for medicine in mymed %}
-      <div class="col-md-4 mb-4">
-        <div class="medicine-card">
-          <img src="{{ medicine.medicine_image.url }}" class="card-img-top" alt="Medicine Image">
-          <div class="medicine-details">
-            <h3 class="medicine-name">{{ medicine.medicine_name }}</h3>
-            <p class="medicine-price">Price: ₹{{ medicine.medicine_price }}</p>
-            <p class="expiry-date"><b>Expiry Date: {{ medicine.medicine_exp }}</b></p>
-            <a href="{% url 'base:myorders' %}" class="add-to-cart-btn">Add To Cart</a>
-          </div>
-        </div>
+  <div class="sort-btns">
+    <button class="btn btn-secondary sort-btn" onclick="sortByName()">Sort by Name</button>
+    <button class="btn btn-secondary sort-btn" onclick="sortByPrice()">Sort by Price</button>
+  </div>
+
+  <div class="medicine-cards">
+    {% for medicine in mymed %}
+    <div class="medicine-card">
+      <a href="{% url 'base:med_detail' product.id %}">
+        <img src="{{ medicine.medicine_image.url }}" class="card-img-top" alt="Medicine Image" width=" 100" height="150">
+      </a>
+      <div class="medicine-details">
+        <h3 class="medicine-name">{{ medicine.medicine_name }}</h3>
+        <p class="medicine-price">Price: ₹{{ medicine.medicine_price }}</p>
+        <p class="expiry-date"><b>Expiry Date: {{ medicine.medicine_exp }}</b></p>
+        <a href="{% url 'base:myorders' %}" class="add-to-cart-btn">Add To Cart</a>
       </div>
-      {% endfor %}
     </div>
+    {% endfor %}
   </div>
 </div>
+
+<script>
+  // JavaScript functions to handle sorting
+  function sortByName() {
+    window.location.href = "{% url 'base:medicines' %}?sort_by=name";
+  }
+
+  function sortByPrice() {
+    window.location.href = "{% url 'base:medicines' %}?sort_by=price";
+  }
+</script>
 
 {% endblock %}

@@ -15,8 +15,14 @@ from django.urls import reverse
 logger = logging.getLogger(__name__)
 
 def product(request):
-  all_products = ProductItems.objects.all()  
-#   print(products)# Fetch all products from the database
+  all_products = ProductItems.objects.all() 
+  sort_by = request.GET.get('sort_by')
+  if sort_by == 'name':
+        all_products = all_products.order_by('prod_name')
+  elif sort_by == 'price':
+        all_products = all_products.order_by('prod_price')
+
+
   context = {'products': all_products}
   return render(request, 'product.html', context)
 
@@ -101,6 +107,11 @@ def about(request):
 
 def medicines(request):
     mymed=Medicines.objects.all()
+    sort_by = request.GET.get('sort_by')
+    if sort_by == 'name':
+        mymed = mymed.order_by('medicine_name')
+    elif sort_by == 'price':
+        mymed = mymed.order_by('medicine_price')
     context={"mymed":mymed}
     # print(context)
     return render(request,"medicines.html",context)
@@ -209,6 +220,40 @@ def search(request):
 
 def ayurveda(request):
     myayur=Ayurveda.objects.all()
+    sort_by = request.GET.get('sort_by')
+    if sort_by == 'name':
+        myayur = myayur.order_by('med_name')
+    elif sort_by == 'price':
+        myayur = myayur.order_by('med_price')
     context={"myayur":myayur}
     # print(context)
     return render(request,"ayurveda.html",context)
+
+def med_detail(request, product_id):
+    try:
+        product = Medicines.objects.get(pk=product_id)
+        print(product)
+    except Medicines.DoesNotExist:
+        return render(request, 'error.html', context={'message': 'Product not found'})  # Handle missing product gracefully
+
+    reviews = product.reviews.all()  # Get all reviews for this product
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)  # Don't save yet
+            review.user = request.user  # Assign current user
+            review.product = product  # Assign current product
+            review.save()
+
+            messages.success(request, 'Your review has been submitted successfully!') 
+            return redirect('med_detail', product_id=product_id)
+    else:
+        form = ReviewForm()
+
+    context = {
+        'product': product,
+        'reviews': reviews,
+        'form': form,
+    }
+    return render(request, 'product_detail.html', context)
