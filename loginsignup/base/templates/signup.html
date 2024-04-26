@@ -1,0 +1,59 @@
+{% load static %}
+
+{% block content%}
+
+<head>
+    <title>Register to CURA</title>
+    <link rel="stylesheet" href="{% static 'reg.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+</head>
+<body>
+
+    <div class="container">
+        <form method="POST" action="{% url 'base:register' %}">
+            {% csrf_token %}
+            <header>Registration Form</header>
+            <div class="input-fields">
+                <label for="id_fname">First Name</label>
+                <input type="text" name="fname" id="id_fname" placeholder="Enter first name">
+            </div>
+            <div class="input-fields">
+                <label for="id_lname">Last Name</label>
+                <input type="text" name="lname" id="id_lname" placeholder="Enter last name">
+            </div>
+            <div class="input-fields">
+                <label for="id_email">Email</label>
+                <input type="text" name="email" id="id_email" placeholder="Enter email">
+            </div>
+            <div class="input-fields">
+                <label for="id_phone">Phone Number</label>
+                <input type="text" name="phone" id="id_phone" placeholder="Enter phone number">
+            </div>
+            <div class="input-fields">
+                <label for="id_dob">Birth Date</label>
+                <input type="date" name="dob" id="id_dob">
+            </div>
+            <div class="input-fields">
+                <label for="id_gender">Gender</label>
+                <select name="gender" id="id_gender">
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="input-fields">
+                <label for="id_password">Password</label>
+                <input type="password" name="password1" id="id_password" placeholder="Set Password">
+            </div>
+            <div class="input-fields">
+                <label for="id_cpassword">Confirm Password</label>
+                <input type="password" name="password2" id="id_cpassword" placeholder="Re-enter Password">
+            </div>
+            <button type="submit">Submit</button>
+        
+        </form>
+        
+    </div>
+    
+{% endblock %}

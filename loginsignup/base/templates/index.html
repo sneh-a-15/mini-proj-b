@@ -1,0 +1,129 @@
+{% extends "base1.html" %}
+{% block title %}
+CURA - The One Stop Pharmacy Store
+{% endblock title %}
+{% load static %}
+{% block content %}
+<head>
+    <!-- <title>Pharmacy Store</title> -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="{% static 'index.css' %}">
+</head>      
+
+<body>
+
+<header>
+
+    <input type="checkbox" name="" id="toggler">
+    <!-- <label for="toggler" class="fas fa-bars"></label> -->
+    <img src="{% static 'images/logo.jpg' %}" alt="Company Logo" class="logo" width="50" height="50">
+    <!-- <a class="logo">CURA<span></span></a> -->
+
+    <div class = "button">
+        <a href="{% url 'base:custom_login' %}" class="btn">Log In</a>
+        <a href="{% url "base:register" %}" class="btn">Sign Up</a>
+    </div>
+</header>
+
+
+</body>
+</html>
+
+
+<section class="home" id="home">
+
+    <div class="content">
+        <h3>CURA</h3>
+        <span>The One Stop Pharmacy Store</span>
+        <p>Get your medicines delivered, always at the best prices</p>
+
+    </div>
+
+</section>
+
+<section class="features">
+
+    <div class="content">
+        <h2>What We Offer?</h2>
+    </div>
+
+</section>
+<section class="icons-container">
+
+    <div class="icons">
+        <img src="static/images/deliv.gif" alt="">
+        <div class="info">
+            <h3>Free Delivery</h3>
+            <span>on all orders</span>
+        </div>
+    </div>
+
+    <div class="icons">
+        <img src="static/images/chat11.gif" alt="">
+        <div class="info">
+            <h3>Virtual Assistant</h3>
+            
+        </div>
+    </div>
+
+    <div class="icons">
+        <img src="static/images/support.gif" alt="">
+        <div class="info">
+            <h3>24/7</h3>
+            <span>Customer Support</span>
+        </div>
+    </div>
+
+    <div class="icons">
+        <img src="static/images/pay.gif" alt="">
+        <div class="info">
+            <h3>Secure Payment</h3>
+            <span>Credit/Debit</span>
+        </div>
+    </div>
+
+</section>
+
+<section class="text">
+
+    <div class="tag">
+        <h3>~ Where Health Meets Convenience ~</h3>
+    </div>
+
+</section>
+
+<section class="container">
+    <div class="slider-wrapper">
+        <div class="slider">
+            <img id="slide-1" src="static/images/slide1.jpg"/>
+            <img id="slide-2" src="static/images/slide2.jpg"/>
+            <img id="slide-3" src="static/images/slide3.jpg"/>
+        </div>
+        <div class="slider-nav">
+            <a href="#slide-1"></a>
+            <a href="#slide-2"></a>
+            <a href="#slide-3"></a>
+        </div>
+        </div>
+
+</section>
+
+<!-- Social Media Links Section -->
+<section class="social-media">
+    <h3>Follow Us</h3>
+    <div class="social-icons">
+        <a href="#" target="_blank" class="fab fa-facebook"></a>
+        <a href="#" target="_blank" class="fab fa-twitter"></a>
+        <a href="#" target="_blank" class="fab fa-instagram"></a>
+        <!-- Add more social media icons as needed -->
+    </div>
+</section>
+
+<!-- Trademark Option -->
+<section class="trademark">
+    <p>&copy; 2024 CURA. All rights reserved.</p>
+</section>
+
+
+{% endblock %}

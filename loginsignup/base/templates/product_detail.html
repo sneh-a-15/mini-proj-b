@@ -1,0 +1,182 @@
+{% extends "basehome.html" %}
+{% block title %}
+{{ product.prod_name }}
+{% endblock title %}
+{% block content %}
+
+<style>
+    /* Style for centering content */
+    .container {
+        max-width: 800px; /* Limit the width of the container */
+        margin: 0 auto; /* Center the container */
+        padding: 20px; /* Add padding */
+    }
+
+    /* Style for product name */
+    h2 {
+        text-align: center; /* Center align the product name */
+        margin-bottom: 20px; /* Add bottom margin */
+    }
+
+    /* Style for product image */
+    img {
+        display: block; /* Make the image a block element */
+        margin: 0 auto 20px; /* Center the image and add bottom margin */
+        max-width: 100%; /* Ensure the image doesn't exceed its container */
+        border-radius: 10px; /* Add rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+    }
+
+    /* Style for product details */
+    .product-details {
+        text-align: center; /* Center align the product details */
+        margin-bottom: 20px; /* Add bottom margin */
+    }
+
+    /* Style for price */
+    .price {
+        font-size: 18px; /* Font size */
+        color: #333; /* Text color */
+        margin-bottom: 10px; /* Add bottom margin */
+    }
+
+    /* Style for expiry date */
+    .expiry-date {
+        font-size: 16px; /* Font size */
+        color: #ff0000; /* Red color for expiry date */
+        margin-bottom: 10px; /* Add bottom margin */
+    }
+
+    /* Style for description box */
+    .description-box {
+        background-color: #f2f2f2; /* Background color */
+        border-radius: 10px; /* Add rounded corners */
+        padding: 10px; /* Add padding */
+        margin-bottom: 20px; /* Add bottom margin */
+    }
+
+    /* Style for description */
+    .description {
+        font-size: 16px; /* Font size */
+        color: #666; /* Text color */
+        margin-bottom: 20px; /* Add bottom margin */
+    }
+
+    /* Style for reviews section */
+    h3 {
+        text-align: center; /* Center align the reviews heading */
+        margin-bottom: 10px; /* Add bottom margin */
+    }
+
+    /* Style for individual review */
+    ul {
+        list-style-type: none; /* Remove bullets from the list */
+        padding: 0; /* Remove default padding */
+    }
+
+    li {
+        border: 1px solid #ccc; /* Add border */
+        border-radius: 10px; /* Add rounded corners */
+        padding: 10px; /* Add padding */
+        margin-bottom: 10px; /* Add bottom margin */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+    }
+
+    li strong {
+        font-weight: bold; /* Make the username bold */
+    }
+
+    /* Style for review form */
+    form {
+        text-align: center; /* Center align the form */
+    }
+
+    button[type="submit"] {
+        background-color: #007bff; /* Button background color */
+        color: #fff; /* Button text color */
+        border: none; /* No border */
+        padding: 8px 16px; /* Padding */
+        text-align: center; /* Center align text */
+        text-decoration: none; /* No underline */
+        display: inline-block; /* Display as inline block */
+        font-size: 14px; /* Font size */
+        border-radius: 4px; /* Rounded corners */
+        cursor: pointer; /* Cursor on hover */
+    }
+
+    button[type="submit"]:hover {
+        background-color: #0056b3; /* Button background color on hover */
+    }
+
+    /* Style for messages */
+    .messages {
+        list-style-type: none; /* Remove bullets from the list */
+        padding: 0; /* Remove default padding */
+    }
+
+    .messages li {
+        margin-bottom: 10px; /* Add bottom margin */
+    }
+
+    .messages .success {
+        color: green; /* Color for success messages */
+    }
+
+    .messages .error {
+        color: red; /* Color for error messages */
+    }
+</style>
+
+<div class="container">
+    <h2>{{ product.prod_name }}</h2>
+
+    <img src="{{ MEDIA_URL }}{{ product.prod_image.url }}" alt="{{ product.prod_name }}">
+
+    <div class="product-details">
+        <div class="price">Price: ₹{{ product.prod_price }}</div>
+        <div class="expiry-date">Expiry Date: {{ product.prod_exp }}</div>
+    </div>
+
+    <div class="description-box">
+        <h3>Description</h3>
+        <div class="description">{{ product.prod_descripton }}</div>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Add To Cart</button>
+    </form>
+
+    <h3>Reviews</h3>
+    {% if reviews %}
+    <ul>
+        {% for review in reviews %}
+        <li>
+            <strong>{{ review.user.username }}</strong> ({{ review.created_at}})<br>
+            {{ review.comment }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No reviews yet. Be the first to leave one!</p>
+    {% endif %}
+
+    <h3>Leave a Review</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Review</button>
+    </form>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+{% endblock %}

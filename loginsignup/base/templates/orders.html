@@ -1,0 +1,324 @@
+{% extends "basehome.html" %} 
+{% block title %} 
+Order-Products/Medicines 
+{% endblock title %} 
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+<style>
+  /* CSS for the left form */
+.container.mt-2 {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.card-body .title{
+  font-size: 25px;
+  font-weight: bold;
+  color: #28a745;
+  justify-content: center;
+  
+}
+.card.bg-light {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card.bg-light .card-body {
+  padding: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+/* CSS for the right table */
+.col-md-8 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.container.mt-2 .table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 50px;
+}
+
+.table-danger th,
+.table-danger td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.table-danger th {
+  background-color: #f8d7da;
+}
+
+.table-danger td {
+  background-color: #fff3cd;
+}
+
+/* Styles for buttons */
+.btn-dark,
+.btn-success,
+.btn-danger {
+  border-radius: 30px;
+}
+
+.btn-dark {
+  background-color: #8ebeed;
+  border-radius: 5px;
+  size: 2rem;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+.form-group input{
+  margin-left: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  position: relative;
+}
+
+.form-group select{
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.form-group textarea{
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+/* Table container */
+.table-container {
+  padding: 20px;
+  border: 1px solid #252121;
+  border-radius: 5px;
+}
+
+/* Adjust spacing between containers */
+.row {
+  margin-bottom: 20px;
+}
+
+</style>
+
+
+<div class="row">
+
+  <div class="col-md-4">
+    
+<div class="container mt-2">
+
+  <div class="card bg-light p-4">
+    <div class="card-body">
+      <form action="/orders" method="post">
+        {% csrf_token %}
+        <label class="title">Fill Order & Delivery Details</label>
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="form-control mb-3"
+            placeholder="Enter Your Name"
+            value="{{user.first_name}} {{user.last_name}}"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="name">Email</label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            class="form-control mb-3"
+            value="{{user.username}}"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+            <label for="items">Select Medicines/Products</label>
+            <select id="items" class="form-control" name="items">
+              <option selected>Choose...</option>
+
+          
+              {% for i in mymed %}
+              <option value="{{i.medicine_name}}">{{i.medicine_name}}</option>
+              {% endfor %}
+              {% for j in myprod %}
+              <option value="{{j.prod_name}}">{{j.prod_name}}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <select id="quantity" class="form-control" name="quantity">
+              <option selected>1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+         
+
+        
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="num">Phone Number</label>
+            <input
+              type="tel"
+              id="num"
+              name="num"
+              class="form-control mb-3"
+              pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+           
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="address">Delivery Address</label>
+            <textarea
+              type="text"
+              id="address"
+              name="address"
+              class="form-control mb-3"
+           
+              required
+            /></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="address">Confirm Address</label>
+            <textarea
+              type="text"
+              id="address"
+              name="address"
+              class="form-control mb-3"
+           
+              required
+            /></textarea>
+          </div>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label mb-2" for="exampleCheck1">Confirm Address</label>
+          </div>
+<h4>Delivery method</h4>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label mb-2" for="exampleCheck1">I Accept cash on delivery method</label>
+          </div>
+          <div class="d-grid gap-2">
+            <button class="btn btn-dark" type="submit">Place Order</button>
+          </div>
+
+
+
+
+
+
+
+      </form>
+    </div>
+  </div>
+  
+</div>
+
+  </div>
+  <div class="col-md-8">
+
+    <div class="container mt-2">
+      <h2 class="display-4">Orders</h2>
+
+      <table class="table table-danger table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Products</th>
+            <th scope="col">Price</th>
+            <th scope="col">Cancel</th>
+            <th scope="col">Delivery Status</th>
+          </tr>
+        </thead>
+        <tbody>
+         
+
+          {% for item in items %}
+          <tr>
+            <th scope="row">{{item.id}}</th>
+            <td>{{item.name}}</td>
+            <td>{{item.items}}</td>
+            <td>{{item.price}}</td>
+            
+
+            {% if item.delivery %}
+            <td><button type="button" class="btn-success p-2"  href="/orders/{{item.id}}"><i class="fa-solid fa-trash-can"></i> </button></td>
+            
+            {% else %}
+            <td><a type="button" class="btn-danger p-2" href="/orders/{{item.id}}"> <i class="fas fa-trash-alt"></i></a></td>
+            {% endif %}
+ 
+ 
+             {% if item.delivery %}
+             <td><i class="fa-solid fa-circle-check"></i> Delivered</td>
+             
+             {% else %}
+             <td> <i class="fa-solid fa-truck"> Order Placed</i></td>
+             {% endif %}
+             {% if item.pending %}
+             
+             <td><i class="fa-solid "></i> Pending</td>
+             
+             {% endif %}
+             
+             
+
+        
+        
+        
+        
+            </tr>
+
+          
+          
+        
+          {% endfor %}
+         
+        </tbody>
+      </table>
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

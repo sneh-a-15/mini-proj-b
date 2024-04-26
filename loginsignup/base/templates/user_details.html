@@ -1,0 +1,13 @@
+{% extends "basehome.html" %}
+{% block title %}
+User Details
+{% endblock title %}
+{% block content %}
+<h1>User Details</h1>
+<p>Username: {{ custom_user.username }}</p>
+<p>Email: {{ custom_user.email }}</p>
+<p>Phone Number: {{ custom_user.phone_number }}</p>
+<p>Birth Date: {{ custom_user.birth_date }}</p>
+<p>Gender: {{ custom_user.gender }}</p>
+<!-- Add more fields from your custom user model as needed -->
+{% endblock %}

@@ -1,0 +1,187 @@
+/* Reset default margin and padding */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+/* Set base font size and family */
+html {
+font-size: 16px;
+font-family: 'Urbanist', sans-serif;
+}
+
+/* Responsive typography */
+h1, h2, h3, h4, h5, h6 {
+font-weight: 600;
+}
+
+p {
+line-height: 1.5;
+}
+
+/* Responsive images */
+img {
+max-width: 100%;
+height: auto;
+}
+
+/* Container styles */
+.container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 15px;
+}
+
+/* Header styles */
+.header {
+background-color: #f8f8f8;
+padding: 10px 0;
+}
+
+.header-top {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.header-top .input-wrapper{
+  display: flex;;
+}
+.navbar-list {
+display: flex;
+list-style: none;
+}
+
+.navbar-link {
+text-decoration: none;
+color: #333;
+margin-right: 20px;
+}
+
+/* Hero section styles */
+.hero {
+background-color: #f0f0f0;
+padding: 50px 0;
+text-align: center;
+}
+
+.hero-title {
+font-size: 2.5rem;
+}
+
+.hero-text {
+font-size: 1.2rem;
+}
+
+.price {
+font-size: 1.5rem;
+color: #007bff;
+}
+
+.btn-primary {
+display: inline-block;
+padding: 10px 20px;
+background-color: #007bff;
+color: #fff;
+text-decoration: none;
+margin-top: 20px;
+}
+
+/* Collection section styles */
+.collection {
+padding: 50px 0;
+}
+
+.collection-list {
+display: flex;
+justify-content: space-between;
+list-style: none;
+}
+
+.collection-card {
+background-color: #fff;
+padding: 20px;
+text-align: center;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+margin-bottom: 20px;
+}
+
+.card-title {
+font-size: 1.5rem;
+}
+
+.card-text {
+font-size: 1.2rem;
+}
+
+.btn-link {
+display: inline-block;
+padding: 10px 20px;
+background-color: #007bff;
+color: #fff;
+text-decoration: none;
+margin-top: 20px;
+}
+
+/* Footer styles */
+.footer-bottom {
+background-color: #333;
+color: #fff;
+padding: 20px 0;
+text-align: center;
+}
+
+.social-list {
+display: flex;
+justify-content: center;
+list-style: none;
+}
+
+.social-link {
+color: #fff;
+font-size: 1.5rem;
+margin: 0 10px;
+}
+
+.logo {
+display: block;
+margin: 20px auto;
+}
+
+.pay-img {
+display: block;
+margin: 20px auto;
+}
+
+/* Back to top button */
+.back-top-btn {
+position: fixed;
+bottom: 20px;
+right: 20px;
+background-color: #007bff;
+color: #fff;
+padding: 10px 15px;
+border-radius: 50%;
+text-align: center;
+text-decoration: none;
+}
+
+/* --------------------------------------------- */
+/* Remove list pointers for reviews */
+ul {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+
+/* Add basic styling for structure */
+body {
+font-family: Arial, sans-serif;
+}
+
+h2, h3 {
+margin: 1em 0;
+}
+
+/* Style the product information section */
