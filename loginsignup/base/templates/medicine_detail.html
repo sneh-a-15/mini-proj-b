@@ -1,6 +1,6 @@
 {% extends "basehome.html" %}
 {% block title %}
-{{ product.prod_name }}
+{{ product.medicine_name }}
 {% endblock title %}
 {% block content %}
 
@@ -174,18 +174,18 @@
 </style>
 
 <div class="container">
-    <h2>{{ product.prod_name }}</h2>
+    <h2>{{ product.medicine_name }}</h2>
 
-    <img src="{{ MEDIA_URL }}{{ product.prod_image.url }}" alt="{{ product.prod_name }}">
+    <img src="{{ MEDIA_URL }}{{ product.medicine_image.url }}" alt="{{ product.medicine_name }}">
 
     <div class="product-details">
-        <div class="price">Price: ₹{{ product.prod_price }}</div>
-        <div class="expiry-date">Expiry Date: {{ product.prod_exp }}</div>
+        <div class="price">Price: ₹{{ product.medicine_price }}</div>
+        <div class="expiry-date">Expiry Date: {{ product.medicine_exp }}</div>
     </div>
 
     <div class="description-box">
         <h3>Description</h3>
-        <div class="description">{{ product.prod_descripton }}</div>
+        <div class="description">{{ product.medicine_descripton }}</div>
     </div>
 
     <form method="POST">

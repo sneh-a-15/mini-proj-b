@@ -24,6 +24,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            
         }
 
         .input-wrapper {
@@ -54,7 +55,7 @@
         }
 
         /* Dropdown styles */
-.dropdown {
+        .dropdown {
     position: relative;
 }
 
@@ -66,36 +67,75 @@
     background-color: #fff;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     list-style-type: none;
-    padding: 10px;
+    padding: 15px;
+    text-decoration: none;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-toggle,
+.dropdown-toggle:focus {
+    text-decoration: none; /* Remove underline */
+    color: #000; /* Set the desired color for the link */
+    cursor: pointer; /* Change cursor to pointer */
+    outline: none;
 }
 
 .dropdown-toggle::after {
     content: '\25BC'; /* Unicode character for arrow */
     margin-left: 5px;
 }
+
 .navbar-link {
     color: #000; /* Set the desired color for the link */
 }
+
+.search-form {
+    display: block;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 300px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.search-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #218838;
+}
+
     </style>
 </head>
 <body>
     <header class="header">
         <div class="header-top">
             <div class="container">
-                <div class="input-wrapper">
-                    <form action="/search" method="get" class="d-flex">
-                        <input type="search" name="search" placeholder="Search product" class="search-field">
-                        <button type="submit" class="search-submit" aria-label="search">
-                            <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
-                        </button>
+                <div class="container mb-4">
+                    <form method="GET" action="{% url 'base:search' %}" class="search-form">
+                        <input class="search-input" type="search" placeholder="Search" aria-label="Search" name="getdata">
+                        <button class="search-button" type="submit">Search</button>
                     </form>
                 </div>
 
-                <div class="header-actions" style="flex: 1;">
-                    <a href="#" class="logo" style="font-size: 20px;">
+                <!-- <div class="header-actions" style="flex: 1; ">
+                    <a href="#" class="logo" style="font-size: 20px; ;">
                         <img src="{% static 'images/favicon.ico' %}" width="30" height="5" alt="CURA">
                     </a>
-                </div>
+                </div> -->
 
                 <nav class="navbar">
                     <ul class="navbar-list">
@@ -115,8 +155,12 @@
                         <li>
                             <a href="#offer" class="navbar-link has-after">Offer</a>
                         </li>
-                        <li>
-                            <a href="info.html" class="navbar-link has-after">Information</a>
+                        <li class="dropdown">
+                            <a href="#" class="navbar-link has-after dropdown-toggle">Information</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'base:blog_category_view' %}">Blogs</a></li>
+                                <li><a href="{% url 'base:video_list' %}">Videos</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>
@@ -125,7 +169,7 @@
     </header>
 
     {% block content %}{% endblock content %}
-    <script>
+    <!-- <script>
         document.addEventListener("DOMContentLoaded", function() {
           // Select all elements with the class 'dropdown-toggle'
           var dropdownToggles = document.querySelectorAll('.dropdown-toggle');
@@ -146,7 +190,7 @@
             });
           });
         });
-        </script>
+        </script> -->
         
         </body>
         </html>

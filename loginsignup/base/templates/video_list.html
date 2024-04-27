@@ -1,0 +1,29 @@
+{% extends "basehome.html" %}
+{% block title %} Videos {% endblock title %}
+{% block content %}
+<style>
+    h1{
+        margin-top: 15px;
+        color: #00a7b3;
+    }
+    video iframe{
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    p{
+        margin-bottom: 20px;
+    }
+</style>
+<div class="container">
+    <h1>Selected Health and Medicine Videos</h1>
+    <div class="video-list">
+        {% for video in videos %}
+            <div class="video">
+                <h2>{{ video.title }}</h2>
+                <p>{{ video.description }}</p>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video.url }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

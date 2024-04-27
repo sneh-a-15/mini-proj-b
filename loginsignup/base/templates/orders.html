@@ -168,6 +168,9 @@ Order-Products/Medicines
               {% for j in myprod %}
               <option value="{{j.prod_name}}">{{j.prod_name}}</option>
               {% endfor %}
+              {% for k in myayur %}
+              <option value="{{k.med_name}}">{{k.med_name}}</option>
+              {% endfor %}
             </select>
           </div>
 

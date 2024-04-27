@@ -7,9 +7,10 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import CustomLoginForm
 import logging
 from django.shortcuts import redirect, get_object_or_404
-from base.models import Medicines,ProductItems,ReviewForm,MyOrders,CustomUser,Ayurveda
+from base.models import Medicines,ProductItems,ReviewForm,MyOrders,CustomUser,Ayurveda,BlogPost,Video
 from django.http import HttpResponse
 from django.urls import reverse
+import uuid
 
 
 logger = logging.getLogger(__name__)
@@ -134,7 +135,7 @@ def product_detail(request, product_id):
             review.save()
 
             messages.success(request, 'Your review has been submitted successfully!') 
-            return redirect('product_detail', product_id=product_id)
+            return redirect('base:product_detail', product_id=product_id)
     else:
         form = ReviewForm()
 
@@ -149,55 +150,63 @@ def product_detail(request, product_id):
 def home(request):
     mymed=Medicines.objects.all()
     myprod=ProductItems.objects.all()
-    context={"mymed":mymed,"myprod":myprod}
+    myayur=Ayurveda.objects.all()
+    context={"mymed":mymed,"myprod":myprod,"myayur":myayur}
     return render(request, "home.html",context)
 
 
 def myorders(request):
     if not request.user.is_authenticated:
-        messages.warning(request,"Please Login to place the Order....")
+        messages.warning(request, "Please Login to place the Order....")
         return redirect("base:login")
-    mymed=Medicines.objects.all()
-    myprod=ProductItems.objects.all()
-
-    # i am writing a logic to get the user details orders
-    current_user=request.user.username
-    # print(current_user)
-    # i am fetching the data from table MyOrders based on emailid
-    items=MyOrders.objects.filter(email=current_user)
-    print(items)
-    context={"myprod":myprod,"mymed":mymed,"items":items}
-    if request.method =="POST":
-        name=request.POST.get("name")
-        email=request.POST.get("email")
-        item=request.POST.get("items")
-        quan=request.POST.get("quantity")
-        address=request.POST.get("address")
-        phone=request.POST.get("num")
-        print(name,email,item,quan,address,phone)
-        
-        price=""
-        for i in mymed:
-            if item==i.medicine_name:
-                price=i.medicine_price
-
-            pass
-        for i in myprod:
-            if item==i.prod_name:
-                price=i.prod_price
-
-            pass
-
-        newPrice=int(price)*int(quan)
-        myquery=MyOrders(name=name,email=email,items=item,address=address,quantity=quan,price=newPrice,phone_num=phone)
-        myquery.save()
-        messages.info(request,f"Order is Successfull")
-        
-
     
-    context = {"myprod": myprod, "mymed": mymed, "items": items}
+    mymed = Medicines.objects.all()
+    myprod = ProductItems.objects.all()
+    myayur = Ayurveda.objects.all()
+    
+    # Fetching the data from MyOrders table based on email id
+    current_user = request.user.username
+    items = MyOrders.objects.filter(email=current_user)
+    
+    context = {"myprod": myprod, "mymed": mymed, "myayur": myayur, "items": items}
+    
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        item = request.POST.get("items")
+        quan = request.POST.get("quantity")
+        address = request.POST.get("address")
+        phone = request.POST.get("num")
+        
+        # Retrieving the price based on the selected item
+        price = None
+        
+        for med in mymed:
+            if item == med.medicine_name:
+                price = med.medicine_price
+                break
+        
+        if not price:
+            for prod in myprod:
+                if item == prod.prod_name:
+                    price = prod.prod_price
+                    break
+        
+        if not price:
+            for ayur in myayur:
+                if item == ayur.ayur_name:
+                    price = ayur.ayur_price
+                    break
+        
+        if price:
+            newPrice = int(price) * int(quan)
+            myquery = MyOrders(name=name, email=email, items=item, address=address, quantity=quan, price=newPrice, phone_num=phone)
+            myquery.save()
+            messages.info(request, f"Order is successful")
+        else:
+            messages.error(request, "Item not found")
+    
     return render(request, "orders.html", context)
-
 @login_required
 def user_details(request):
     user = request.user
@@ -211,13 +220,14 @@ def search(request):
         print(query)
         allPostsMedicines = Medicines.objects.filter(medicine_name__icontains=query)
         allPostsProducts = ProductItems.objects.filter(prod_name__icontains=query)
-        allPosts = allPostsMedicines.union(allPostsProducts)
-        return render(request, "search.html", {"Med": allPostsMedicines, "Prod": allPostsProducts, "allItems": allPosts})
+        allPostsAyurveda = Ayurveda.objects.filter(med_name__icontains=query)
+        allItems = allPostsMedicines.union(allPostsProducts, allPostsAyurveda)
+        return render(request, "search.html", {"Med": allPostsMedicines, "Prod": allPostsProducts, "Ayur": allPostsAyurveda, "allItems": allItems, "query": query})
     else:
         # Handle case where 'getdata' key is not found
         # For example, redirect to a page with an error message
         return HttpResponse("No search query provided")
-
+    
 def ayurveda(request):
     myayur=Ayurveda.objects.all()
     sort_by = request.GET.get('sort_by')
@@ -229,10 +239,33 @@ def ayurveda(request):
     # print(context)
     return render(request,"ayurveda.html",context)
 
-def med_detail(request, product_id):
+def blog_category_view(request):
+    # Get all blog posts
+    all_posts = BlogPost.objects.all()
+
+    # Organize posts by category
+    categorized_posts = {}
+    for category, _ in BlogPost.CATEGORY_CHOICES:
+        categorized_posts[category] = all_posts.filter(category=category)
+
+    context = {
+        'categorized_posts': categorized_posts
+    }
+
+    return render(request, 'blog.html', context)
+
+def blog_detail(request, blog_id):
+    blog = get_object_or_404(BlogPost, pk=blog_id)
+    return render(request, 'blog_detail.html', {'blog': blog})
+
+def video_list(request):
+    videos = Video.objects.all()
+    return render(request, 'video_list.html', {'videos': videos})
+
+def medicine_detail(request, product_id):
     try:
         product = Medicines.objects.get(pk=product_id)
-        print(product)
+        print(product_id)
     except Medicines.DoesNotExist:
         return render(request, 'error.html', context={'message': 'Product not found'})  # Handle missing product gracefully
 
@@ -247,7 +280,7 @@ def med_detail(request, product_id):
             review.save()
 
             messages.success(request, 'Your review has been submitted successfully!') 
-            return redirect('med_detail', product_id=product_id)
+            return redirect('base:medicine_detail', product_id=product_id)
     else:
         form = ReviewForm()
 
@@ -256,4 +289,5 @@ def med_detail(request, product_id):
         'reviews': reviews,
         'form': form,
     }
-    return render(request, 'product_detail.html', context)
+    return render(request, 'medicine_detail.html', context)
+    

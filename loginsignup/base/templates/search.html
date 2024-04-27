@@ -1,66 +1,157 @@
 {% extends "basehome.html" %}
-{% block title %} About {% endblock title %}
-{% block body %}
-<br>
+{% block title %} Search Results {% endblock title %}
+{% block content %}
+<style>
 
-<h2 class="text-center bg-dark text-success">Your Search results......</h2>
+h2{
+  color: #218838;
+  margin-left: 10px;
+}
+p{
+  color :#dc3545;
+  margin-left: 10px;
+}
+.medicine-cards {
+    display: flex; /* Use flexbox */
+    flex-wrap: wrap; /* Wrap items onto multiple lines */
+    justify-content: space-between; /* Distribute items evenly with equal space between them */
+  }
 
-<br />
-{% if allItems|length < 1%}
+  /* Style for medicine card */
+  .medicine-card {
+    margin-top: 30px;
+    width: calc(33% - 10px); /* Set card width to half of the container width with margin */
+    margin-bottom: 20px; /* Bottom margin */
+    background-color: #fff; /* Card background color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Card shadow */
+  }
 
-<h1>Your Search did not match <span class="badge bg-secondary">Try Again</span></h1>
-<ul>
-<li>Make Sure You have Spelled Correct</li>
-</ul>
+  /* Style for medicine card image */
+  .medicine-card img {
+    margin-top: 20px;
+    border-top-left-radius: 10px; /* Rounded corners for top-left of image */
+    border-top-right-radius: 10px; /* Rounded corners for top-right of image */
+    width: 100%; /* Image width */
+    height: 200px; /* Image height */
+    object-fit: contain; /* Cover the entire space of the image container */
+  }
+
+  /* Style for medicine details */
+  .medicine-details {
+    padding: 20px; /* Padding around the medicine details */
+  }
+
+  /* Style for medicine name */
+  .medicine-name {
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Bold font */
+    margin-bottom: 10px; /* Spacing below the medicine name */
+  }
+
+  /* Style for medicine price */
+  .medicine-price {
+    font-size: 14px; /* Font size */
+    color: #28a745; /* Green color for price */
+    margin-bottom: 10px; /* Spacing below the medicine price */
+  }
+
+  /* Style for expiry date */
+  .expiry-date {
+    font-size: 12px; /* Font size */
+    color: #dc3545; /* Red color for expiry date */
+    margin-bottom: 10px; /* Spacing below the expiry date */
+  }
+
+  /* Style for Add to Cart button */
+  .add-to-cart-btn {
+    background-color: #28a745; /* Button background color */
+    color: #fff; /* Button text color */
+    border: none; /* No border */
+    padding: 6px 12px; /* Padding */
+    text-align: center; /* Center align text */
+    text-decoration: none; /* No underline */
+    display: inline-block; /* Display as inline block */
+    font-size: 12px; /* Font size */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Cursor on hover */
+  }
+
+  /* Style for Add to Cart button on hover */
+  .add-to-cart-btn:hover {
+    background-color: #218838; /* Button background color on hover */
+  }
+
+
+</style>
+
+{% if allItems %}
+    <h2>Search Results:</h2>
+    <p>Total Results: {{ allItems|length }}</p>
+    
+    <!-- Add code to display search results here -->
+    
+{% else %}
+    <h1>Your Search did not match <span class="badge bg-secondary">Try Again</span></h1>
+    <ul>
+        <li>Make Sure You have Spelled Correct</li>
+    </ul>
 {% endif %}
 
 <br />
 
 
 <div class="container mt-2">
-
-    <div class="row">
-
-        {% for i in Med  %}
-        <div class="col row-cols-1 row-cols-md-3 g-4 py-5">
-            <div class="card" style="width: 18rem; border-radius:30px;">
-                <img src="{{i.medicine_image.url}}" class="card-img-top border-radius:30px; padding:30px;border-radius:30px;" alt="...">
-                <div class="card-body">
-                  <h3 class="card-title">{{i.medicine_name}}</h3> 
-                  <p class="text-success">Price : {{i.medicine_price}} Rs</p>
-
-                  <p class="text-danger"><b>Expiry Date  : {{i.medicine_exp}}</b></p>
-                  <a href="{% url 'base:myorders' %}" class="btn btn-success border-radious:30px bg:green;">Add To Cart</a>
-                </div>
-              </div>
-
+    <!-- Display Medicines -->
+    <div class="medicine-cards">
+        {% for med in Med %}
+        <div class="medicine-card">
+          <a href="#">
+            <img src="{{ med.medicine_image.url }}" class="card-img-top" alt="Medicine Image" width=" 100" height="150">
+          </a>
+          <div class="medicine-details">
+            <h3 class="medicine-name">{{ med.medicine_name }}</h3>
+            <p class="medicine-price">Price: ₹{{ med.medicine_price }}</p>
+            <p class="expiry-date"><b>Expiry Date: {{ med.medicine_exp }}</b></p>
+            <a href="{% url 'base:myorders' %}" class="add-to-cart-btn">Add To Cart</a>
+          </div>
         </div>
         {% endfor %}
     </div>
 
-    <div class="row">
-
-        {% for i in Prod  %}
-        <div class="col row-cols-1 row-cols-md-3 g-4 py-5">
-            <div class="card" style="width: 18rem; border-radius:30px;">
-                <img src="{{i.prod_image.url}}" class="card-img-top border-radius:30px; padding:30px;border-radius:30px;" alt="...">
-                <div class="card-body">
-                  <h6 class="card-title">{{i.prod_name}}</h6>
-                  <p class="text-success">Price : {{i.prod_price}} Rs</p>
-                  <p class="text-danger"><b>Expiry Date  : {{i.prod_exp}}</b></p>
-                  <a href="{% url 'base:myorders' %}" class="btn btn-success border-radious:30px bg:green; ">Add To Cart</a>
-                </div>
-              </div>
-
+    <!-- Display Products -->
+    <div class="medicine-cards">
+      {% for prod in Prod %}
+      <div class="medicine-card">
+        <a href="{% url 'base:product_detail' prod.id %}">
+        <img src="{{ prod.prod_image.url }}" class="card-img-top" alt="{{ product.name }}" width=" 100" height="150">
+      </a>
+        <div class="medicine-details">
+          <h3 class="product-name">{{ prod.prod_name }}</h3>
+          <p class="product-price">Price: ₹{{  prod.prod_price }}</p>
+          <p class="expiry-date"><b>Expiry Date: {{ prod.prod_exp }}</b></p>
+          <a href="{% url 'base:myorders' %}" class="add-to-cart-btn">Add To Cart</a>
         </div>
+      </div>
         {% endfor %}
     </div>
 
-
-   
-
-
+    <!-- Display Ayurvedic Items -->
+    <div class="row">
+        {% for ayur in Ayur %}
+        <div class="col-md-4 mb-4">
+            <div class="custom-card">
+                <img src="{{ ayur.med_image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ ayur.med_name }}</h5>
+                    <p class="card-text text-success">Price : {{ ayur.med_price }} Rs</p>
+                    <p class="card-text text-danger"><b>Expiry Date  : {{ ayur.med_exp }}</b></p>
+                    <a href="{% url 'base:myorders' %}" class="btn btn-success">Add To Cart</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 
-
-{% endblock body %}
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends "basehome.html" %}
+{% block title %} Blogs {% endblock title %}
+{% block content %}
+<style>
+
+h1{
+  color: #00a7b3;
+  margin-top: 20px;
+}
+
+h2{
+  color: #278d42;
+}
+  .category-buttons {
+    margin-bottom: 20px;
+}
+
+.category-button {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-right: 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.category-button:hover {
+    background-color: #0056b3;
+}
+
+.post-box {
+    display: flex;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.post-thumbnail {
+    flex: 0 0 200px; /* Fixed width for the thumbnail */
+}
+
+.post-thumbnail img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.post-details {
+    flex: 1;
+    padding: 20px;
+}
+
+.post-details h3 {
+    margin-top: 0;
+}
+
+.post-details .read-more {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.post-details .read-more:hover {
+    background-color: #0056b3;
+}
+
+</style>
+<div class="container">
+    <h1>Blog Posts by Category</h1>
+    <div class="category-buttons">
+        {% for category in categories %}
+            <a href="{% url 'base:blog_category_view' category.slug %}" class="category-button">{{ category.name }}</a>
+        {% endfor %}
+    </div>
+    {% for category, posts in categorized_posts.items %}
+      <div class="category-section">
+        <h2>{{ category }}</h2>
+        <div class="post-list">
+          {% for post in posts %}
+            <div class="post-box">
+              <div class="post-thumbnail">
+                {% if post.image %}
+                  <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                {% endif %}
+              </div>
+              <div class="post-details">
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.content|truncatewords:20 }}</p>
+                <p>Author: {{ post.author }}</p>
+                <a href="{% url 'base:blog_detail' blog_id=post.id %}" class="read-more">Read More</a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
