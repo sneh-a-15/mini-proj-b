@@ -1,5 +1,5 @@
 {% extends "basehome.html" %}
-{% block title %}{{ medicine.medicine_name }}{% endblock title %}
+{% block title %}{{ product.medicine_name }}{% endblock title %}
 {% block content %}
 
 <style>
@@ -199,16 +199,16 @@
 <div class="container">
     <h2>{{ medicine.medicine_name }}</h2>
 
-    <img src="{{ MEDIA_URL }}{{ medicine.medicine_image.url }}" alt="{{ medicine.medicine_name }}">
+    <img src="{{ MEDIA_URL }}{{ ayurveda.med_image.url }}" alt="{{ ayurveda.med_name }}">
 
     <div class="medicine-details">
-        <div class="price">Price: ₹{{ medicine.medicine_price }}</div>
-        <div class="expiry-date">Expiry Date: {{ medicine.medicine_exp }}</div>
+        <div class="price">Price: ₹{{ ayurveda.med_price }}</div>
+        <div class="expiry-date">Expiry Date: {{ ayurveda.med_exp }}</div>
     </div>
 
     <div class="description-box">
         <h3>Description</h3>
-        <div class="description">{{ medicine.medicine_descripton }}</div>
+        <div class="description">{{ ayurveda.med_descripton }}</div>
     </div>
 
     <a href="{% url 'base:myorders' %}" class="add-to-cart-btn">Add To Cart</a>

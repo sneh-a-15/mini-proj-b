@@ -82,13 +82,18 @@ class MyOrders(models.Model):
 class Review(models.Model):
     product = models.ForeignKey(ProductItems, on_delete=models.CASCADE, related_name='reviews',null=True, blank=True)
     medicines = models.ForeignKey(Medicines,on_delete=models.CASCADE, related_name='reviews',null=True, blank=True)
+    ayurveda = models.ForeignKey(Ayurveda,on_delete=models.CASCADE, related_name='reviews',null=True, blank=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     rating = models.IntegerField(choices=((1, '1 Star'), (2, '2 Stars'), (3, '3 Stars'), (4, '4 Stars'), (5, '5 Stars')))
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.product.prod_name} - {self.medicines.medicine_name} - {self.rating}"
+        product_name = self.product.prod_name if self.product else 'N/A'
+        medicine_name = self.medicines.medicine_name if self.medicines else 'N/A'
+        ayurveda_name = self.ayurveda.ayurveda_name if self.ayurveda else 'N/A'
+        return f"{self.user.username} - {product_name} - {medicine_name} - {ayurveda_name} - {self.rating}"
+
 
 class ReviewForm(forms.ModelForm):
     class Meta:

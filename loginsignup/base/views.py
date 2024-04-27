@@ -264,30 +264,59 @@ def video_list(request):
 
 def medicine_detail(request, product_id):
     try:
-        product = Medicines.objects.get(pk=product_id)
+        medicine = Medicines.objects.get(pk=product_id)
         print(product_id)
     except Medicines.DoesNotExist:
-        return render(request, 'error.html', context={'message': 'Product not found'})  # Handle missing product gracefully
+        return render(request, 'error.html', context={'message': 'medicine not found'})  # Handle missing product gracefully
 
-    reviews = product.reviews.all()  # Get all reviews for this product
+    reviews = medicine.reviews.all()  # Get all reviews for this product
 
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)  # Don't save yet
             review.user = request.user  # Assign current user
-            review.product = product  # Assign current product
+            review.medicines = medicine  # Assign current product
             review.save()
 
             messages.success(request, 'Your review has been submitted successfully!') 
-            return redirect('base:medicine_detail', product_id=product_id)
+            return redirect('base:medicine_detail', product_id=product.id)
     else:
         form = ReviewForm()
 
     context = {
-        'product': product,
+        'medicine': medicine,
         'reviews': reviews,
         'form': form,
     }
     return render(request, 'medicine_detail.html', context)
+    
+def ayurveda_detail(request, product_id):
+    try:
+        ayurveda = Ayurveda.objects.get(pk=product_id)
+        print(product_id)
+    except Medicines.DoesNotExist:
+        return render(request, 'error.html', context={'message': 'medicine not found'})  # Handle missing product gracefully
+
+    reviews = ayurveda.reviews.all()  # Get all reviews for this product
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)  # Don't save yet
+            review.user = request.user  # Assign current user
+            review.ayurveda = ayurveda  # Assign current product
+            review.save()
+
+            messages.success(request, 'Your review has been submitted successfully!') 
+            return redirect('base:ayurveda_detail', product_id=product.id)
+    else:
+        form = ReviewForm()
+
+    context = {
+        'ayurveda': ayurveda,
+        'reviews': reviews,
+        'form': form,
+    }
+    return render(request, 'ayurveda_detail.html', context)
     

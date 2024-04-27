@@ -130,7 +130,9 @@
   <div class="medicine-cards">
     {% for ayurveda in myayur %}
     <div class="medicine-card">
+      <a href="{% url 'base:ayurveda_detail' product_id=ayurveda.id %}">
       <img src="{{ ayurveda.med_image.url }}" class="card-img-top" alt="Medicine Image" width=" 100" height="150">
+    </a>
       <div class="medicine-details">
         <h3 class="medicine-name">{{ ayurveda.med_name }}</h3>
         <p class="medicine-price">Price: ₹{{ ayurveda.med_price }}</p>

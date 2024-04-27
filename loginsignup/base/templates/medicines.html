@@ -130,7 +130,7 @@
   <div class="medicine-cards">
     {% for medicine in mymed %}
     <div class="medicine-card">
-      <a href="{% url 'base:medicine_detail' product_id=product.id %}">
+      <a href="{% url 'base:medicine_detail' product_id=medicine.id %}">
         <img src="{{ medicine.medicine_image.url }}" class="card-img-top" alt="Medicine Image" width=" 100" height="150">
       </a>
       <div class="medicine-details">
