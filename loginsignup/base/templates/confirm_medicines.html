@@ -16,7 +16,7 @@
   </ul>
   <p>**Original Text:**</p>
   <pre>{{ processed_text }}</pre>
-  <form method="POST" action="{% url 'base:confirm_medicines' %}"">
+  <form method="POST" action="{% url 'base:confirm_medicines' %}">
     {% csrf_token %}
     <h3>Select confirmed medicines:</h3>
     {% for medicine_name in medicine_names %}

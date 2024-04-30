@@ -1,20 +1,64 @@
 {% extends "basehome.html" %}
 {% block title %} Prescription Scan {% endblock title %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prescription Upload</title>
-</head>
-<body>
+<style>
+    /* Style for the container */
+    .container1 {
+        margin-top: 60px;
+        max-width: 600px; /* Set maximum width */
+        margin-left: 30%; /* Center align */
+        padding: 20px; /* Add padding */
+        border: 1px solid #ccc; /* Add border */
+        border-radius: 10px; /* Add border radius */
+        background-color: #f8f9fa; /* Background color */
+    }
+
+    /* Style for the heading */
+    h1 {
+        font-size: 24px; /* Set font size */
+        text-align: center; /* Center align */
+        margin-bottom: 20px; /* Add margin */
+    }
+
+    /* Style for the form */
+    form {
+        text-align: center; /* Center align */
+    }
+
+    /* Style for the file input */
+    input[type="file"] {
+        display: block; /* Display as block element */
+        margin: 0 auto 20px; /* Center align with bottom margin */
+        padding: 10px; /* Add padding */
+        border: 2px dashed #007bff; /* Add border */
+        border-radius: 5px; /* Add border radius */
+        background-color: #fff; /* Background color */
+        cursor: pointer; /* Add pointer cursor */
+    }
+
+    /* Style for the upload button */
+    button[type="submit"] {
+        background-color: #007bff; /* Button background color */
+        color: #fff; /* Button text color */
+        border: none; /* No border */
+        padding: 10px 20px; /* Add padding */
+        border-radius: 5px; /* Add border radius */
+        cursor: pointer; /* Add pointer cursor */
+        transition: background-color 0.3s; /* Add transition */
+    }
+
+    /* Style for the upload button on hover */
+    button[type="submit"]:hover {
+        background-color: #0056b3; /* Darker background color on hover */
+    }
+</style>
+
+<div class="container1">
     <h1>Upload Prescription</h1>
-    <form action="{% url 'base:process_prescription' %}" method="post" enctype="multipart/form-data">
+    <form action="{% url 'base:prescription_scan' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="file" name="prescription_image" accept="image/*">
         <button type="submit">Upload</button>
     </form>
-</body>
-</html>
+</div>
 {% endblock %}

@@ -24,6 +24,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding:0;
             
         }
 
@@ -121,7 +122,7 @@
     </style>
 </head>
 <body>
-    <header class="header">
+    <section class="header">
         <div class="header-top">
             <div class="container">
                 <div class="container mb-4">
@@ -169,31 +170,10 @@
                 </nav>
             </div>
         </div>
-    </header>
+    </section>
 
     {% block content %}{% endblock content %}
-    <!-- <script>
-        document.addEventListener("DOMContentLoaded", function() {
-          // Select all elements with the class 'dropdown-toggle'
-          var dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-        
-          // Loop through each toggle element
-          dropdownToggles.forEach(function(toggle) {
-            // Add click event listener to each toggle
-            toggle.addEventListener('click', function() {
-              // Get the next sibling element (should be the dropdown menu)
-              var dropdownMenu = this.nextElementSibling;
-        
-              // Toggle the visibility of the dropdown menu
-              if (dropdownMenu.style.display === 'none' || dropdownMenu.style.display === '') {
-                dropdownMenu.style.display = 'block';
-              } else {
-                dropdownMenu.style.display = 'none';
-              }
-            });
-          });
-        });
-        </script> -->
+
         
         </body>
         </html>
