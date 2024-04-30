@@ -7,10 +7,12 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import CustomLoginForm
 import logging
 from django.shortcuts import redirect, get_object_or_404
-from base.models import Medicines,ProductItems,ReviewForm,MyOrders,CustomUser,Ayurveda,BlogPost,Video
+from base.models import Medicines,ProductItems,ReviewForm,MyOrders,CustomUser,Ayurveda,BlogPost,Video,Prescription,Skincare
 from django.http import HttpResponse
-from django.urls import reverse
-import uuid
+import re
+from PIL import Image
+import pytesseract
+
 
 
 logger = logging.getLogger(__name__)
@@ -116,6 +118,17 @@ def medicines(request):
     context={"mymed":mymed}
     # print(context)
     return render(request,"medicines.html",context)
+
+def skincare(request):
+    skinc=Skincare.objects.all()
+    sort_by = request.GET.get('sort_by')
+    if sort_by == 'name':
+        skinc = skinc.order_by('skinc_name')
+    elif sort_by == 'price':
+        skinc = skinc.order_by('skinc_price')
+    context={"skinc":skinc}
+    # print(context)
+    return render(request,"skincare.html",context)
 
 def product_detail(request, product_id):
     try:
@@ -320,3 +333,79 @@ def ayurveda_detail(request, product_id):
     }
     return render(request, 'ayurveda_detail.html', context)
     
+def prescription_scan(request):
+    if request.method == 'POST':
+        print("POST request received.")
+        prescription_image = request.FILES['prescription_image']
+        # Check if the form contains a file input named 'prescription_image'
+        if prescription_image:
+            # File is being uploaded, so proceed with processing
+            print("Prescription image received.")
+            
+            prescription = Prescription.objects.create(image=prescription_image)
+            extracted_text = prescription.process_image()
+            print("Prescription image processed.")
+            # Extract medicine names from the extracted text
+            medicine_names = extract_medicine_names(extracted_text)
+            processed_text = extracted_text
+
+            print("Medicine names extracted:", medicine_names)
+            # Pass the extracted medicine names to the template
+            return render(request, 'confirm_medicines.html', {'medicine_names': medicine_names, 'processed_text': processed_text})
+
+    # If the request method is not POST or if no file is uploaded,
+    # render the prescription upload form
+    print("Rendering presc_upload.html...")
+    return render(request, 'presc_upload.html')
+
+def process_prescription(request):
+  if request.method == 'POST':
+    print("POST request received.")
+
+    confirmed_medicines = request.POST.getlist('confirmed_medicines')
+    print("Confirmed medicines:", confirmed_medicines)
+
+    matching_products = filter_medicines(confirmed_medicines)  # Use filter_medicines function
+    print("Matching products:", matching_products)
+
+    return render(request, 'matching_products.html', {'matching_products': matching_products})
+  return redirect('prescription_scan')
+
+def process_image(image_path):
+  # Configure Tesseract path (if not in system PATH)
+  pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  # Replace with your Tesseract path
+  
+  # Read image and perform OCR
+  img = Image.open(image_path)
+  text = pytesseract.image_to_string(img)
+  return text.strip()  # Remove leading/trailing whitespaces
+
+def extract_medicine_names(text):
+  # Improved regular expression pattern (adjust as needed)
+  medicine_pattern = r'\b(?:[A-Z][a-z]+\s?(?:(?:[A-Z][a-z]+)|(?:[0-9]+(?:\.[0-9]+)?(?:mg|ml|g|u)?))?|\([^)]+\))\b'
+  
+  medicine_matches = re.findall(medicine_pattern, text, flags=re.IGNORECASE)
+  unique_medicine_names = list(set(medicine_matches))
+  return unique_medicine_names
+
+def confirm_medicines(request):
+    if request.method == 'GET':
+        medicine_names = request.GET.getlist('medicine_names', [])
+        processed_text = request.GET.get('processed_text', '')
+        return render(request, 'confirm_medicines.html', {'medicine_names': medicine_names, 'processed_text': processed_text})
+    
+def filter_medicines(confirmed_medicines):
+  # Fuzzy matching using fuzzywuzzy (install it: pip install fuzzywuzzy)
+  from fuzzywuzzy import fuzz  # Import for fuzzy matching
+  
+  medicine_objects = Medicines.objects.all()
+  matching_products = []
+  
+  for confirmed_med in confirmed_medicines:
+    for medicine in medicine_objects:
+      # Consider both exact and fuzzy matches with a minimum score (adjust threshold)
+      if confirmed_med.lower() == medicine.medicine_name.lower() or fuzz.ratio(confirmed_med.lower(), medicine.medicine_name.lower()) >= 80:
+        matching_products.append(medicine)
+        break  # Avoid duplicates for the same confirmed medicine
+  
+  return matching_products

@@ -1,0 +1,25 @@
+{% extends "basehome.html" %}
+{% block title %} Prescription Scan {% endblock title %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Matching Products</title>
+  </head>
+<body>
+  <h1>Matching Products</h1>
+  {% if matching_products %}
+    <p>We found the following products matching your selected medicines:</p>
+    <ul>
+      {% for product in matching_products %}
+        <li>{{ product.name }} ({{ product.description }})</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No matching products found for your selected medicines.</p>
+  {% endif %}
+  <a href="{% url 'base:prescription_scan' %}">Scan another prescription</a>
+</body>
+</html>
+
+{% endblock %}

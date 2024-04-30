@@ -3,6 +3,8 @@ from django import forms
 from django.contrib.auth.models import AbstractUser,BaseUserManager
 # from django.contrib.auth.models import User
 from django.utils import timezone
+from PIL import Image
+import pytesseract
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -65,6 +67,16 @@ class Ayurveda(models.Model):
     def __str__(self):
         return self.med_name
 
+class Skincare(models.Model):
+    skinc_name=models.CharField(max_length=250)
+    skinc_image=models.ImageField(upload_to="skincucts",blank=True,null=True)
+    skinc_price=models.IntegerField()
+    skinc_descripton=models.TextField()
+    skinc_exp=models.DateField(default=timezone.now)
+    
+    def __str__(self):
+        return self.skinc_name
+    
 class MyOrders(models.Model):
     name=models.CharField(max_length=30)
     email=models.EmailField()
@@ -126,3 +138,12 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Prescription(models.Model):
+    image = models.ImageField(upload_to='prescriptions/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def process_image(self):
+        image = Image.open(self.image)
+        text = pytesseract.image_to_string(image)
+        return text

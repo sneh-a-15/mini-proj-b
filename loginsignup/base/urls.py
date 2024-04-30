@@ -28,6 +28,10 @@ urlpatterns = [
     path("blogs",views.blog_category_view, name='blog_category_view'),
     path('blog/<int:blog_id>/', views.blog_detail, name='blog_detail'),
     path('videos/', views.video_list, name='video_list'),
+    path("prescription_scan/", views.prescription_scan, name="prescription_scan"),
+    path('confirm_medicines/', views.confirm_medicines, name='confirm_medicines'),
+    path('process_prescription/', views.process_prescription, name='process_prescription'),
+    path('skincare/',views.skincare,name="skincare")
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

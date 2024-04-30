@@ -1,0 +1,161 @@
+{% extends "basehome.html" %}
+{% block title %}
+Skincare
+{% endblock title %}
+{% block content %}
+
+<style>
+  /* Style for introduction section */
+  .intro-section {
+    margin-top: 30px;
+    background-color: #faf8f9e8; /* Background color */
+    padding: 15px 20px; /* Padding */
+    border-radius: 10px; /* Rounded corners */
+    margin-bottom: 30px; /* Bottom margin */
+  }
+
+  /* Style for introduction text */
+  .intro-text {
+    font-size: 18px; /* Font size */
+    text-align: left; /* Center align text */
+    color: #6c757d; /* Text color */
+    margin-bottom: 10px; /* Bottom margin */
+  }
+
+  /* Style for medicine cards container */
+  .medicine-cards {
+    display: flex; /* Use flexbox */
+    flex-wrap: wrap; /* Wrap items onto multiple lines */
+    justify-content: space-between; /* Distribute items evenly with equal space between them */
+  }
+
+  /* Style for medicine card */
+  .medicine-card {
+    margin-top: 30px;
+    width: calc(33% - 10px); /* Set card width to half of the container width with margin */
+    margin-bottom: 20px; /* Bottom margin */
+    background-color: #fff; /* Card background color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Card shadow */
+  }
+
+  /* Style for medicine card image */
+  .medicine-card img {
+    margin-top: 20px;
+    border-top-left-radius: 10px; /* Rounded corners for top-left of image */
+    border-top-right-radius: 10px; /* Rounded corners for top-right of image */
+    width: 100%; /* Image width */
+    height: 200px; /* Image height */
+    object-fit: contain; /* Cover the entire space of the image container */
+  }
+
+  /* Style for medicine details */
+  .medicine-details {
+    padding: 20px; /* Padding around the medicine details */
+  }
+
+  /* Style for medicine name */
+  .medicine-name {
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Bold font */
+    margin-bottom: 10px; /* Spacing below the medicine name */
+  }
+
+  /* Style for medicine price */
+  .medicine-price {
+    font-size: 14px; /* Font size */
+    color: #28a745; /* Green color for price */
+    margin-bottom: 10px; /* Spacing below the medicine price */
+  }
+
+  /* Style for expiry date */
+  .expiry-date {
+    font-size: 12px; /* Font size */
+    color: #dc3545; /* Red color for expiry date */
+    margin-bottom: 10px; /* Spacing below the expiry date */
+  }
+
+  /* Style for Add to Cart button */
+  .add-to-cart-btn {
+    background-color: #28a745; /* Button background color */
+    color: #fff; /* Button text color */
+    border: none; /* No border */
+    padding: 6px 12px; /* Padding */
+    text-align: center; /* Center align text */
+    text-decoration: none; /* No underline */
+    display: inline-block; /* Display as inline block */
+    font-size: 12px; /* Font size */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Cursor on hover */
+  }
+
+  /* Style for Add to Cart button on hover */
+  .add-to-cart-btn:hover {
+    background-color: #218838; /* Button background color on hover */
+  }
+
+  .sort-btns {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .sort-btn {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 2px solid #007bff;
+    background-color: #fff;
+    color: #007bff;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+
+  .sort-btn:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+</style>
+
+<div class="container mt-2">
+  <div class="intro-section">
+    <h2 class="display-4 text-center">Welcome to our Skincare Page!</h2>
+    <p class="intro-text">Discover the secrets to radiant and healthy skin with our curated collection of skincare products and expert tips.</p>
+  </div>
+  <hr>
+  
+  <div class="sort-btns">
+    <button class="btn btn-secondary sort-btn" onclick="sortByName()">Sort by Name</button>
+    <button class="btn btn-secondary sort-btn" onclick="sortByPrice()">Sort by Price</button>
+  </div>
+
+  <div class="medicine-cards">
+    {% for skin in skinc %}
+    <div class="medicine-card">
+      <a href="#">
+      <img src="{{ skin.skinc_image.url }}" class="card-img-top" alt="{{ skin.name }}" width=" 100" height="150">
+    </a>
+      <div class="medicine-details">
+        <h3 class="skin-name">{{ skin.skinc_name }}</h3>
+        <p class="skin-price">Price: ₹{{  skin.skinc_price }}</p>
+        <p class="expiry-date"><b>Expiry Date: {{ skin.skinc_exp }}</b></p>
+        <a href="{% url 'base:myorders' %}" class="add-to-cart-btn">Add To Cart</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  // JavaScript functions to handle sorting
+  function sortByName() {
+    window.location.href = "{% url 'base:skincare' %}?sort_by=name";
+  }
+
+  function sortByPrice() {
+    window.location.href = "{% url 'base:skincare' %}?sort_by=price";
+  }
+</script>
+
+{% endblock %}

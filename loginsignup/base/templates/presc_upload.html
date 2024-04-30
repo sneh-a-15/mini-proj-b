@@ -1,0 +1,20 @@
+{% extends "basehome.html" %}
+{% block title %} Prescription Scan {% endblock title %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescription Upload</title>
+</head>
+<body>
+    <h1>Upload Prescription</h1>
+    <form action="{% url 'base:process_prescription' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="prescription_image" accept="image/*">
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>
+{% endblock %}

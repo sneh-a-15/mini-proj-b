@@ -1,0 +1,34 @@
+{% extends "basehome.html" %}
+{% block title %} Prescription Scan {% endblock title %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Confirm Medicines</title>
+  </head>
+<body>
+  <h1>Confirm Extracted Medicines</h1>
+  <p>Please review the extracted medicine names from your prescription:</p>
+  <ul>
+    {% for medicine_name in medicine_names %}
+      <li>{{ medicine_name }}</li>
+    {% endfor %}
+  </ul>
+  <p>**Original Text:**</p>
+  <pre>{{ processed_text }}</pre>
+  <form method="POST" action="{% url 'base:confirm_medicines' %}"">
+    {% csrf_token %}
+    <h3>Select confirmed medicines:</h3>
+    {% for medicine_name in medicine_names %}
+      <input type="checkbox" name="confirmed_medicines" value="{{ medicine_name }}" id="med_{{ medicine_name }}">
+      <label for="med_{{ medicine_name }}">{{ medicine_name }}</label><br>
+    {% endfor %}
+    <br>
+    <button type="submit">Confirm Selection</button>
+  </form>
+</body>
+</html>
+
+
+{% endblock %}
+
