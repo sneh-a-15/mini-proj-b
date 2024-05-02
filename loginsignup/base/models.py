@@ -147,3 +147,11 @@ class Prescription(models.Model):
         image = Image.open(self.image)
         text = pytesseract.image_to_string(image)
         return text
+    
+
+class Symptoms_medicine(models.Model):
+    symptom = models.CharField(max_length=100)
+    medicine_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.symptom}: {self.medicine_name}"
