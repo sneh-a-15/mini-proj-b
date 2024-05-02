@@ -235,8 +235,9 @@ def search(request):
         allPostsMedicines = Medicines.objects.filter(medicine_name__icontains=query)
         allPostsProducts = ProductItems.objects.filter(prod_name__icontains=query)
         allPostsAyurveda = Ayurveda.objects.filter(med_name__icontains=query)
-        allItems = allPostsMedicines.union(allPostsProducts, allPostsAyurveda)
-        return render(request, "search.html", {"Med": allPostsMedicines, "Prod": allPostsProducts, "Ayur": allPostsAyurveda, "allItems": allItems, "query": query})
+        allPostsSkincare = Skincare.objects.filter(skinc_name__icontains=query)
+        allItems = allPostsMedicines.union(allPostsProducts, allPostsAyurveda,allPostsSkincare)
+        return render(request, "search.html", {"Med": allPostsMedicines, "Prod": allPostsProducts, "Ayur": allPostsAyurveda, "Skin": allPostsSkincare, "allItems": allItems, "query": query})
     else:
         # Handle case where 'getdata' key is not found
         # For example, redirect to a page with an error message

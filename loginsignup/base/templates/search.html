@@ -137,21 +137,37 @@ p{
     </div>
 
     <!-- Display Ayurvedic Items -->
-    <div class="row">
+    <div class="medicine-cards">
         {% for ayur in Ayur %}
-        <div class="col-md-4 mb-4">
-            <div class="custom-card">
-                <img src="{{ ayur.med_image.url }}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{ ayur.med_name }}</h5>
-                    <p class="card-text text-success">Price : {{ ayur.med_price }} Rs</p>
-                    <p class="card-text text-danger"><b>Expiry Date  : {{ ayur.med_exp }}</b></p>
-                    <a href="{% url 'base:myorders' %}" class="btn btn-success">Add To Cart</a>
+            <div class="medicine-card">
+              <a href="{% url 'base:ayurveda_detail' ayur.id %}">
+                <img src="{{ ayur.med_image.url }}" class="card-img-top" alt="..."></a>
+                <div class="medicine-details">
+                    <h3 class="product-name">{{ ayur.med_name }}</h5>
+                    <p class="product-price">Price : {{ ayur.med_price }} Rs</p>
+                    <p class="expiry-date"><b>Expiry Date  : {{ ayur.med_exp }}</b></p>
+                    <a href="{% url 'base:myorders' %}" class="add-to-cart-btn">Add To Cart</a>
                 </div>
             </div>
-        </div>
         {% endfor %}
     </div>
+
+    <div class="medicine-cards">
+      {% for skin in Skin %}
+      <div class="medicine-card">
+        <a href="{% url 'base:skincare_detail' skin.id %}">
+          <img src="{{ skin.skinc_image.url }}" class="card-img-top" alt="Medicine Image" width=" 100" height="150">
+        </a>
+        <div class="medicine-details">
+          <h3 class="medicine-name">{{skin.skinc_name }}</h3>
+          <p class="medicine-price">Price: ₹{{ skin.skinc_price }}</p>
+          <p class="expiry-date"><b>Expiry Date: {{ skin.skinc_exp }}</b></p>
+          <a href="{% url 'base:myorders' %}" class="add-to-cart-btn">Add To Cart</a>
+        </div>
+      </div>
+      {% endfor %}
+  </div>
+  
 </div>
 
 {% endblock %}
