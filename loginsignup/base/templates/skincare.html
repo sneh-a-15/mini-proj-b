@@ -133,7 +133,7 @@ Skincare
   <div class="medicine-cards">
     {% for skin in skinc %}
     <div class="medicine-card">
-      <a href="#">
+      <a href="{%  url 'base:skincare_detail' product_id=skin.id %}">
       <img src="{{ skin.skinc_image.url }}" class="card-img-top" alt="{{ skin.name }}" width=" 100" height="150">
     </a>
       <div class="medicine-details">
