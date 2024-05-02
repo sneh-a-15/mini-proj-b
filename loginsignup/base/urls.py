@@ -20,12 +20,12 @@ urlpatterns = [
     
     path("medicines/<int:product_id>", medicine_detail, name="medicine_detail"),
     path("ayurveda/<int:product_id>", ayurveda_detail, name="ayurveda_detail"), 
+    path("skincare/<int:product_id>", views.skincare_detail, name="skincare_detail"), 
     path('logout', views.HandleLogout, name="HandleLogout"),
     path("orders",views.myorders,name="myorders"),
     path('user_details/', views.user_details, name='user_details'),
     path("search",views.search,name="search"),
     path("ayurveda", views.ayurveda, name="ayurveda"),
-    # path("medicines/<int:medicine_id>", med_detail, name="med_detail"),
     path("blogs",views.blog_category_view, name='blog_category_view'),
     path('blog/<int:blog_id>/', views.blog_detail, name='blog_detail'),
     path('videos/', views.video_list, name='video_list'),

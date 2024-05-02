@@ -256,7 +256,7 @@ body {
                                     Your Prescription For Health.
                                 </p>
                                 <p class="price">Starting at Rs.17.99</p>
-                                <a href="#" class="btn btn-primary">Shop Now</a>
+                                <a href="{% url 'base:medicines' %}" class="btn btn-primary">Shop Now</a>
                             </div>
                         </div>
                     </li>
@@ -270,7 +270,7 @@ body {
                         <div class="collection-card has-before hover:shine">
                             <h2 class="h2 card-title">Essentials</h2>
                             <p class="card-text">Starting at ₹100</p>
-                            <a href="#" class="btn-link">
+                            <a href="{% url 'base:product' %}" class="btn-link">
                                 <span class="span">Shop Now</span>
                                 <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
                             </a>
@@ -281,7 +281,7 @@ body {
                         <div class="collection-card has-before hover:shine">
                             <h2 class="h2 card-title">What's New?</h2>
                             <p class="card-text">Get the glow</p>
-                            <a href="{% url 'base:product' %}" class="btn-link">
+                            <a href="{% url 'base:skincare' %}" class="btn-link">
                                 <span class="span">Discover Now</span>
                                 <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
                             </a>

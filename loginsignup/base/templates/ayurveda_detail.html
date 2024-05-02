@@ -1,5 +1,5 @@
 {% extends "basehome.html" %}
-{% block title %}{{ product.medicine_name }}{% endblock title %}
+{% block title %}{{ ayurveda.med_name }}{% endblock title %}
 {% block content %}
 
 <style>
@@ -197,7 +197,7 @@
 </style>
 
 <div class="container">
-    <h2>{{ medicine.medicine_name }}</h2>
+    <h2>{{ ayurveda.med_name }}</h2>
 
     <img src="{{ MEDIA_URL }}{{ ayurveda.med_image.url }}" alt="{{ ayurveda.med_name }}">
 

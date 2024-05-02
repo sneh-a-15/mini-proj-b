@@ -309,7 +309,7 @@ def ayurveda_detail(request, product_id):
     try:
         ayurveda = Ayurveda.objects.get(pk=product_id)
         print(product_id)
-    except Medicines.DoesNotExist:
+    except Ayurveda.DoesNotExist:
         return render(request, 'error.html', context={'message': 'medicine not found'})  # Handle missing product gracefully
 
     reviews = ayurveda.reviews.all()  # Get all reviews for this product
@@ -333,6 +333,35 @@ def ayurveda_detail(request, product_id):
         'form': form,
     }
     return render(request, 'ayurveda_detail.html', context)
+
+def skincare_detail(request, product_id):
+    try:
+        skincare = Skincare.objects.get(pk=product_id)
+        print(product_id)
+    except Skincare.DoesNotExist:
+        return render(request, 'error.html', context={'message': 'medicine not found'})  # Handle missing product gracefully
+
+    reviews = skincare.reviews.all()  # Get all reviews for this product
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)  # Don't save yet
+            review.user = request.user  # Assign current user
+            review.skincare = skincare  # Assign current product
+            review.save()
+
+            messages.success(request, 'Your review has been submitted successfully!') 
+            return redirect('base:skincare_detail', product_id=product.id)
+    else:
+        form = ReviewForm()
+
+    context = {
+        'skincare': skincare,
+        'reviews': reviews,
+        'form': form,
+    }
+    return render(request, 'skincare_detail.html', context)
     
 def prescription_scan(request):
     if request.method == 'POST':
