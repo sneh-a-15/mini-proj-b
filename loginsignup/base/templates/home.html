@@ -7,98 +7,89 @@ Home - CURA
 {% block content %}
 <style>
 :root {
+  /**
+  * colors
+  */
+  --hoockers-green_20: hsl(148, 20%, 38%, 0.2);
+  --pale-spring-bud: hsl(60, 68%, 85%);
+  --hoockers-green: hsl(148, 20%, 38%);
+  --spanish-gray: hsl(0, 0%, 61%);
+  --light-gray: hsl(0, 0%, 80%);
+  --cultured-1: hsl(0, 0%, 97%);
+  --cultured-2: hsl(60, 6%, 93%);
+  --gray-web: hsl(0, 0%, 49%);
+  --white_30: hsl(0, 0%, 100%, 0.3);
+  --black_70: hsla(0, 0%, 0%, 0.7);
+  --black_50: hsla(0, 0%, 0%, 0.5);
+  --black_15: hsla(0, 0%, 0%, 0.15);
+  --black_10: hsla(0, 0%, 0%, 0.1);
+  --black_5: hsla(0, 0%, 0%, 0.05);
+  --white: hsl(0, 0%, 100%);
+  --black: hsl(0, 0%, 0%);
 
-/**
- * colors
- */
+  /**
+  * gradient color
+  */
+  --gradient: linear-gradient(to right, transparent 50%, var(--white_30) 100%);
 
---hoockers-green_20: hsl(148, 20%, 38%, 0.2);
---pale-spring-bud: hsl(60, 68%, 85%);
---hoockers-green: hsl(148, 20%, 38%);
---spanish-gray: hsl(0, 0%, 61%);
---light-gray: hsl(0, 0%, 80%);
---cultured-1: hsl(0, 0%, 97%);
---cultured-2: hsl(60, 6%, 93%);
---gray-web: hsl(0, 0%, 49%);
---white_30: hsl(0, 0%, 100%, 0.3);
---black_70: hsla(0, 0%, 0%, 0.7);
---black_50: hsla(0, 0%, 0%, 0.5);
---black_15: hsla(0, 0%, 0%, 0.15);
---black_10: hsla(0, 0%, 0%, 0.1);
---black_5: hsla(0, 0%, 0%, 0.05);
---white: hsl(0, 0%, 100%);
---black: hsl(0, 0%, 0%);
+  /**
+  * typography
+  */
+  --ff-urbanist: 'Urbanist', sans-serif;
 
-/**
- * gradient color
- */
+  --fs-1: 4.8rem;
+  --fs-2: 4rem;
+  --fs-3: 3.4rem;
+  --fs-4: 2.4rem;
+  --fs-5: 2rem;
+  --fs-6: 1.8rem;
+  --fs-7: 1.5rem;
+  --fs-8: 1.4rem;
+  --fs-9: 1.3rem;
 
---gradient: linear-gradient(to right, transparent 50%, var(--white_30) 100%);
+  --fw-400: 400;
+  --fw-500: 500;
+  --fw-600: 600;
+  --fw-700: 700;
+  --fw-800: 800;
 
-/**
- * typography
- */
+  /**
+  * spacing
+  */
+  --section-padding: 35px;
 
---ff-urbanist: 'Urbanist', sans-serif;
+  /**
+  * shadow
+  */
+  --shadow-1: 0 8px 16px var(--black_15);
+  --shadow-2: 0 4px 10px var(--black_5);
 
---fs-1: 4.8rem;
---fs-2: 4rem;
---fs-3: 3.4rem;
---fs-4: 2.4rem;
---fs-5: 2rem;
---fs-6: 1.8rem;
---fs-7: 1.5rem;
---fs-8: 1.4rem;
---fs-9: 1.3rem;
+  /**
+  * radius
+  */
+  --radius-3: 3px;
 
---fw-400: 400;
---fw-500: 500;
---fw-600: 600;
---fw-700: 700;
---fw-800: 800;
-
-/**
- * spacing
- */
-
---section-padding: 35px;
-
-/**
- * shadow
- */
-
---shadow-1: 0 8px 16px var(--black_15);
---shadow-2: 0 4px 10px var(--black_5);
-
-/**
- * radius
- */
-
---radius-3: 3px;
-
-/**
- * transition
- */
-
---transition-1: 0.25s ease;
---transition-2: 0.5s ease;
---transition-3: 1s ease;
---cubic-in: cubic-bezier(0.51, 0.03, 0.64, 0.28);
---cubic-out: cubic-bezier(0.33, 0.85, 0.4, 0.96);
-
+  /**
+  * transition
+  */
+  --transition-1: 0.25s ease;
+  --transition-2: 0.5s ease;
+  --transition-3: 1s ease;
+  --cubic-in: cubic-bezier(0.51, 0.03, 0.64, 0.28);
+  --cubic-out: cubic-bezier(0.33, 0.85, 0.4, 0.96);
 }
 
-    a,
+a,
 img,
 span,
 input,
-button
- { display: block; }
+button { display: block; }
 
 a {
   text-decoration: none;
   color: inherit;
 }
+
 html {
   font-family: var(--ff-urbanist);
   font-size: 10px;
@@ -112,7 +103,9 @@ body {
   font-weight: var(--fw-500);
   line-height: 1.6;
 }
-.container { padding-inline: 15px; }
+
+.container1 
+{ padding: 15px; }
 
 .section { padding-block: var(--section-padding); }
 
@@ -131,22 +124,33 @@ body {
   line-height: 1.3;
 }
 
-.h1 {
-  font-size: var(--fs-1);
-  line-height: 1.2;
-}
+.h1 { font-size: var(--fs-1); line-height: 1.2; }
 
 .h2 { font-size: var(--fs-3); }
 
 .h2-large { font-size: var(--fs-2); }
 
 .h3 { font-size: var(--fs-4); }
+
 .hero { padding-block-start: 0; }
 
 .hero-card {
-  background-color: var(--light-gray);
   padding: 200px 25px;
   background-position: 40%;
+}
+
+.hero-title::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("{% static 'images/hero-banner-1.jpg' %}");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.7;
+  z-index: -1;
 }
 
 .hero-text {
@@ -184,9 +188,7 @@ body {
 
 .footer-list-text { font-size: var(--fs-8); }
 
-.collection {
-  padding-block-start: 0;
-}
+.collection { padding-block-start: 0; }
 
 .collection-list {
   display: flex;
@@ -216,15 +218,35 @@ body {
   margin-block-end: auto;
 }
 
+.hero-title {
+  position: relative;
+  color: #333;
+  text-align: center;
+  font-size: var(--fs-1);
+}
+.camera-icon {
+    position: fixed;
+    bottom: 100px;
+    right:16px;
+    font-size: 2.5rem;
+    background-color: #2dd26f;
+    border-radius: 80%;
+    padding: 10px 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
 
+.camera-icon ion-icon {
+    color: rgb(255, 255, 255);
+}
 </style>
 <main>
     <article>
         <section class="section hero" id="home" aria-label="hero" data-section>
-            <div class="container">
+            <div class="container1">
                 <ul class="has-scrollbar">
                     <li class="scrollbar-item">
-                        <div class="hero-card has-bg-image" style="background-image: url('./assets/images/cura.png')">
+                        <div class="hero-card has-bg-image">
                             <div class="card-content">
                                 <h1 class="h1 hero-title">
                                     Your Health<br>
@@ -252,7 +274,7 @@ body {
                                 <span class="span">Shop Now</span>
                                 <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
                             </a>
-                            <div class="has-bg-image" style="background-image: url('./assets/images/coll1.jpg')"></div>
+                            <div class="has-bg-image"></div>
                         </div>
                     </li>
                     <li>
@@ -263,7 +285,7 @@ body {
                                 <span class="span">Discover Now</span>
                                 <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
                             </a>
-                            <div class="has-bg-image" style="background-image: url('./assets/images/coll2.jpeg')"></div>
+                            <div class="has-bg-image" ></div>
                         </div>
                     </li>
                     <li>
@@ -274,7 +296,7 @@ body {
                                 <span class="span">Discover Now</span>
                                 <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
                             </a>
-                            <div class="has-bg-image" style="background-image: url('./assets/images/coll4.jpg')"></div>
+                            <div class="has-bg-image" ></div>
                         </div>
                     </li>
                 </ul>
@@ -309,12 +331,17 @@ body {
                 </li>
             </ul>
         </div>
- 
+    </div>
 </footer>
-
+<a href="{% url 'base:prescription_scan' %}" class="camera-icon">
+    <ion-icon name="camera" ></ion-icon>
+</a>
 <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
     <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
 </a>
+
+
+
 
 <script src="./assets/js/script.js" defer></script>
 

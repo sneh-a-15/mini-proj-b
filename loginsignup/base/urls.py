@@ -31,6 +31,7 @@ urlpatterns = [
     path("prescription_scan/", views.prescription_scan, name="prescription_scan"),
     path('confirm_medicines/', views.confirm_medicines, name='confirm_medicines'),
     path('process_prescription/', views.process_prescription, name='process_prescription'),
+    path('filter_medicines/', views.filter_medicines, name='filter_medicines'),
     path('skincare/',views.skincare,name="skincare")
 ]
 if settings.DEBUG:
