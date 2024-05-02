@@ -17,6 +17,7 @@ urlpatterns = [
     path('product/', views.product, name="product"),
     path("medicines", views.medicines, name="medicines"),
     path("products/<int:product_id>", product_detail, name="product_detail"),
+    
     path("medicines/<int:product_id>", medicine_detail, name="medicine_detail"),
     path("ayurveda/<int:product_id>", ayurveda_detail, name="ayurveda_detail"), 
     path("skincare/<int:product_id>", views.skincare_detail, name="skincare_detail"), 
@@ -32,7 +33,10 @@ urlpatterns = [
     path('confirm_medicines/', views.confirm_medicines, name='confirm_medicines'),
     path('process_prescription/', views.process_prescription, name='process_prescription'),
     path('filter_medicines/', views.filter_medicines, name='filter_medicines'),
-    path('skincare/',views.skincare,name="skincare")
+    path('skincare/',views.skincare,name="skincare"),
+    path('symptoms/', views.symptoms, name='symptoms'),
+    path('suggest_medicines/', views.suggest_medicines, name='suggest_medicines'),
+    
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

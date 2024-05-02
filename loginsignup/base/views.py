@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import CustomLoginForm
 import logging
 from django.shortcuts import redirect, get_object_or_404
-from base.models import Medicines,ProductItems,ReviewForm,MyOrders,CustomUser,Ayurveda,BlogPost,Video,Prescription,Skincare
+from base.models import Medicines,ProductItems,ReviewForm,MyOrders,CustomUser,Ayurveda,BlogPost, Symptoms_medicine,Video,Prescription,Skincare
 from django.http import HttpResponse
 import re
 from PIL import Image
@@ -446,6 +446,7 @@ def confirm_medicines(request):
     else:
         # Return a 405 Method Not Allowed response for other request methods
         return HttpResponse(status=405)
+        
     
 def filter_medicines(confirmed_medicines):
     print("Filtering medicines...")
@@ -481,5 +482,33 @@ def filter_medicines(confirmed_medicines):
                     matching_products.append(medicine)
     print(matching_products)
     return matching_products
+
+def symptoms(request):
+    return render(request, 'symptoms.html')
+
+def suggest_medicines(request):
+    if request.method == 'POST':
+        symptoms = request.POST.get('symptoms').lower().split(',')
+        suggested_medicines = set()
+        
+        for symptom in symptoms:
+            # Strip whitespace and make symptom lowercase for case insensitivity
+            symptom = symptom.strip().lower()
+            medicines = Symptoms_medicine.objects.filter(symptom__iexact=symptom)
+            
+            # Extract only the medicine names
+            suggested_medicines.update(medicine.medicine_name for medicine in medicines)
+
+        # Convert suggested_medicines set to a list
+        suggested_medicines_list = list(suggested_medicines)
+
+        matching_products = filter_medicines(suggested_medicines_list)
+
+        print(suggested_medicines_list)
+        return render(request, 'matching_symp_products.html', {'matching_symp_products': matching_products})
+    else:
+        return render(request, 'symptoms.html')
+
+
 
 

@@ -1,0 +1,78 @@
+{% extends "base1.html" %}
+{% block title %}
+CURA - The One Stop Pharmacy Store
+{% endblock title %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Suggestions</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4; /* Light gray background */
+        }
+        h1 {
+            color: #333; /* Dark gray heading */
+            text-align: center;
+            margin-top: 20px;
+        }
+        p {
+            color: #555; /* Gray paragraph text */
+            text-align: center;
+        }
+        /* Form styles */
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc; /* Light gray border */
+            border-radius: 5px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff; /* Blue button */
+            color: #fff; /* White text */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        /* Link styles */
+        a {
+            color: #007bff; /* Blue link */
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Medicine Suggestions</h1>
+    <p>Please enter your symptoms separated by commas:</p>
+    <form action="{% url 'base:suggest_medicines' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="symptoms" placeholder="e.g., headache, fever, cough">
+        <button type="submit">Get Medicine Suggestions</button>
+    </form>
+</body>
+</html>
+
+
+{% endblock %}
